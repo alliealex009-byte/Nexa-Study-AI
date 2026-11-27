@@ -29,11 +29,10 @@ def _welcome_html(settings: Settings) -> str:
     spark = tg_emoji("spark", settings)
     return (
         f"{spark} <b>Welcome to NEXA STUDY AI</b>\n\n"
-        "Your free, self-hosted <b>NEET UG &amp; JEE</b> study assistant powered by local <code>qwen2.5:3b</code>.\n\n"
+        "Your free, self-hosted <b>NEET UG &amp; JEE</b> study assistant powered by <b>AAKASH AI</b>.\n\n"
         "• Tap any colored subject button below for its inline sub-menu\n"
         "• Send a clear photo of a question for instant ARM64 OCR\n"
-        "• Use <code>/random</code>, <code>/neet</code>, <code>/jee</code>, or <code>/poll</code> in <b>DM or Group Chats</b>\n"
-        "• Use <code>/widget</code> in DM for interactive Telegram HTML Widgets"
+        "• Use <code>/random</code>, <code>/neet</code>, <code>/jee</code>, or <code>/poll</code> in <b>DM or Group Chats</b>"
     )
 
 
@@ -41,16 +40,15 @@ def _help_html(settings: Settings) -> str:
     info = tg_emoji("help", settings)
     return (
         f"{info} <b>How to use NEXA STUDY AI</b>\n\n"
-        "<b>1. Subject Sub-Menus</b>: Tap Biology, Chemistry, or Physics for doubts, 10-yr PYQs, NCERT, quizzes &amp; polls.\n"
+        "<b>1. Subject Sub-Menus</b>: Tap Biology, Chemistry, or Physics for doubts, 10-yr PYQs, NCERT Class 11 &amp; 12 chapters, quizzes &amp; polls.\n"
         "<b>2. Solve from Image (OCR)</b>: Send any cropped, well-lit question photo.\n"
         "<b>3. 10-Year Random Prep (DM &amp; Group Chats)</b>:\n"
         "   • <code>/random</code> or <code>/prep</code> — Random NEET/JEE prep question\n"
         "   • <code>/neet</code> — Random 10-year (2016–2025) NEET UG question\n"
         "   • <code>/jee</code> — Random 10-year (2016–2025) JEE Main/Adv question\n"
         "   • <code>/poll</code> — Native Telegram Quiz Poll (great for study groups!)\n"
-        "   • <code>/ask &lt;question&gt;</code> — Ask AI a doubt inside a group chat\n"
-        "<b>4. Telegram Widgets</b>: Use <code>/widget</code> in DM for interactive Progress, PYQ Flashcard &amp; Formula Timer widgets.\n\n"
-        "Commands: <code>/start</code>, <code>/menu</code>, <code>/random</code>, <code>/neet</code>, <code>/jee</code>, <code>/poll</code>, <code>/widget</code>, <code>/progress</code>, <code>/help</code>"
+        "   • <code>/ask &lt;question&gt;</code> — Ask AAKASH AI a doubt inside a group chat\n\n"
+        "Commands: <code>/start</code>, <code>/menu</code>, <code>/random</code>, <code>/neet</code>, <code>/jee</code>, <code>/poll</code>, <code>/progress</code>, <code>/help</code>"
     )
 
 
@@ -122,12 +120,10 @@ async def cb_subject_submenu(callback: CallbackQuery, users: UserRepository, set
 
 @router.message(Command("widget"))
 async def cmd_widget(message: Message, settings: Settings) -> None:
-    """Open the Telegram Bot API 10.4 Interactive Widgets hub."""
+    """Open the interactive study cards hub."""
     icon = tg_emoji("widget", settings)
     await message.answer(
-        f"{icon} <b>Telegram Interactive Widgets (Bot API 10.4)</b>\n\n"
-        "Tap a widget below to launch an interactive card directly inside Telegram "
-        "(supported in private DM; falls back cleanly to rich HTML if unavailable):",
+        f"{icon} <b>Interactive Study Cards</b>\n\nTap a card below to launch:",
         reply_markup=widget_menu_keyboard(settings),
         parse_mode="HTML",
     )
@@ -139,7 +135,7 @@ async def cb_widget_menu(callback: CallbackQuery, settings: Settings) -> None:
     icon = tg_emoji("widget", settings)
     if callback.message:
         await callback.message.answer(
-            f"{icon} <b>Telegram Interactive Widgets (Bot API 10.4)</b>\n\nChoose a widget to launch:",
+            f"{icon} <b>Interactive Study Cards</b>\n\nChoose a card to launch:",
             reply_markup=widget_menu_keyboard(settings),
             parse_mode="HTML",
         )
@@ -176,7 +172,7 @@ async def cb_send_widget(
             chat_id=chat_id,
             chat_type=chat_type,
             widget_html=widget_html,
-            caption="📊 <b>Your Live Progress Widget</b>",
+            caption="📊 <b>Your Live Progress Card</b>",
             fallback_text=fallback,
             reply_markup=widget_menu_keyboard(settings),
             enabled=settings.enable_telegram_widgets,
@@ -217,13 +213,13 @@ async def cb_send_widget(
             chat_id=chat_id,
             chat_type=chat_type,
             widget_html=widget_html,
-            caption="⏱️ <b>Interactive Pomodoro &amp; Formula Widget</b>",
+            caption="⏱️ <b>Interactive Pomodoro &amp; Formula Card</b>",
             fallback_text=fallback,
             reply_markup=widget_menu_keyboard(settings),
             enabled=settings.enable_telegram_widgets,
             height=220,
         )
-    await callback.answer("Widget ready!")
+    await callback.answer("Ready!")
 
 
 @router.callback_query(F.data == "menu:settings")

@@ -1,0 +1,25 @@
+services:
+  nexa-bot:
+    build: .
+    container_name: nexa-study-ai
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Uses existing `ollama` container on `nexa-net` without exposing port 11434 publicly
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+    networks:
+      - nexa-net
+    # Protect 12 GB RAM VPS so Ollama keeps ample memory for qwen2.5:3b
+    mem_limit: 1024m
+    cpus: 1.0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  # Connects to your existing Docker network where the `ollama` container already runs
+  nexa-net:
+    external: true

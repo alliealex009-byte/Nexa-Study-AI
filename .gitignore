@@ -1,0 +1,26 @@
+# Secrets & Local Configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Runtime Locks & Logs
+*.lock
+*.log
+logs/
+
+# OS & Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

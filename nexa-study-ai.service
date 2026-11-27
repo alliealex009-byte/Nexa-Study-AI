@@ -1,0 +1,17 @@
+[Unit]
+Description=NEXA STUDY AI Telegram Educational Bot
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Nexa-Study-AI
+EnvironmentFile=/home/ubuntu/Nexa-Study-AI/.env
+ExecStart=/home/ubuntu/Nexa-Study-AI/.venv/bin/python /home/ubuntu/Nexa-Study-AI/bot.py
+Restart=always
+RestartSec=5
+MemoryMax=1G
+
+[Install]
+WantedBy=multi-user.target

@@ -44,6 +44,8 @@ _EQUATION_RE = re.compile(rf"(?<![A-Za-z0-9_])({_MATH_EXPR}\s*=\s*{_MATH_EXPR})(
 _ARITHMETIC_RE = re.compile(
     r"(?<![A-Za-z0-9_])(\(?-?\d+(?:\.\d+)?(?:\s*[\+\-\*/\^]\s*\(?-?\d+(?:\.\d+)?\)?){1,6}\)?)(?![A-Za-z0-9_])"
 )
+# Skip trivial bare fractions like "(4/9)" or "2/3" from MCQ option choices
+_SIMPLE_FRACTION_RE = re.compile(r"^\(?\s*\d{1,2}\s*/\s*\d{1,2}\s*\)?$")
 
 
 @dataclass(frozen=True)
@@ -127,7 +129,7 @@ def verify_arithmetic(expr_text: str) -> VerificationResult:
 
 
 def extract_and_verify(question_text: str) -> VerificationResult:
-    """Scan a student's question for equations or arithmetic and verify with SymPy."""
+    """Scan a student's question for equations or meaningful arithmetic and verify with SymPy."""
     if not question_text or len(question_text) > 2000:
         return VerificationResult(verified=False, summary="")
 
@@ -148,7 +150,7 @@ def extract_and_verify(question_text: str) -> VerificationResult:
     if not notes:
         for match in _ARITHMETIC_RE.finditer(question_text):
             candidate = match.group(1).strip()
-            if candidate in seen:
+            if candidate in seen or _SIMPLE_FRACTION_RE.match(candidate):
                 continue
             res = verify_arithmetic(candidate)
             if res.verified:

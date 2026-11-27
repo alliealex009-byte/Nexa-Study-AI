@@ -23,12 +23,12 @@ def subject_submenu_keyboard(subject: str, settings: Settings | None = None) -> 
                 styled_button(f"Random {subj_title} PYQ", callback_data=f"pyq:random:{subject}", style="primary", emoji_key="random", settings=settings),
             ],
             [
-                styled_button("NCERT Chapters", callback_data=f"ncert:subj:{subject}", style="primary", emoji_key="ncert", settings=settings),
+                styled_button("NCERT 11th & 12th", callback_data=f"ncert:subj:{subject}", style="primary", emoji_key="ncert", settings=settings),
                 styled_button(f"{subj_title} Quiz", callback_data=f"quiz:start:subject:{subject}", style="success", emoji_key="quiz", settings=settings),
             ],
             [
                 styled_button("Send Group Quiz Poll", callback_data=f"pyq:poll:{subject}", style="primary", emoji_key="spark", settings=settings),
-                styled_button("Formula Widget", callback_data="widget:formula", style="primary", emoji_key="widget", settings=settings),
+                styled_button("Formula Card", callback_data="widget:formula", style="primary", emoji_key="widget", settings=settings),
             ],
             [
                 styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
@@ -54,7 +54,7 @@ def doubt_followup_keyboard(subject: str, settings: Settings | None = None) -> I
 
 
 def ncert_subject_keyboard(settings: Settings | None = None) -> InlineKeyboardMarkup:
-    """Pick a subject to browse verified NCERT chapters."""
+    """Pick a subject to browse all Class 11 & 12 NCERT chapters."""
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -63,6 +63,22 @@ def ncert_subject_keyboard(settings: Settings | None = None) -> InlineKeyboardMa
             ],
             [
                 styled_button("Physics NCERT", callback_data="ncert:subj:physics", style="primary", emoji_key="physics", settings=settings),
+                styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
+            ],
+        ]
+    )
+
+
+def ncert_class_keyboard(subject: str, settings: Settings | None = None) -> InlineKeyboardMarkup:
+    """Sub-menu to browse Class 11 or Class 12 chapters of a subject."""
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                styled_button(f"Class 11 {subject.title()}", callback_data=f"ncert:class:{subject}:11", style="success", emoji_key="ncert", settings=settings),
+                styled_button(f"Class 12 {subject.title()}", callback_data=f"ncert:class:{subject}:12", style="primary", emoji_key="ncert", settings=settings),
+            ],
+            [
+                styled_button("All Subjects", callback_data="menu:ncert", emoji_key="ncert", settings=settings),
                 styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
             ],
         ]
@@ -83,7 +99,7 @@ def pyq_exam_keyboard(settings: Settings | None = None) -> InlineKeyboardMarkup:
             ],
             [
                 styled_button("Group Quiz Poll", callback_data="pyq:poll:all", style="primary", emoji_key="spark", settings=settings),
-                styled_button("PYQ Flashcard Widget", callback_data="widget:pyq", style="primary", emoji_key="widget", settings=settings),
+                styled_button("PYQ Flashcard", callback_data="widget:pyq", style="primary", emoji_key="widget", settings=settings),
             ],
             [
                 styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
@@ -154,17 +170,17 @@ def pyq_answer_keyboard(
 
 
 def widget_menu_keyboard(settings: Settings | None = None) -> InlineKeyboardMarkup:
-    """Sub-menu for Telegram Bot API 10.4 Interactive HTML Widgets."""
+    """Sub-menu for interactive study cards."""
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                styled_button("Progress Dashboard Widget", callback_data="widget:progress", style="primary", emoji_key="progress", settings=settings),
+                styled_button("Progress Dashboard", callback_data="widget:progress", style="primary", emoji_key="progress", settings=settings),
             ],
             [
-                styled_button("10-Yr PYQ Flashcard Widget", callback_data="widget:pyq", style="success", emoji_key="pyq", settings=settings),
+                styled_button("10-Yr PYQ Flashcard", callback_data="widget:pyq", style="success", emoji_key="pyq", settings=settings),
             ],
             [
-                styled_button("Pomodoro & Formula Widget", callback_data="widget:formula", style="primary", emoji_key="widget", settings=settings),
+                styled_button("Pomodoro & Formula Card", callback_data="widget:formula", style="primary", emoji_key="widget", settings=settings),
             ],
             [
                 styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
@@ -197,7 +213,7 @@ def quiz_mode_keyboard(settings: Settings | None = None) -> InlineKeyboardMarkup
 def quiz_chapter_keyboard(chapters: list[str], settings: Settings | None = None) -> InlineKeyboardMarkup:
     """List verified chapters available for chapter-wise quizzes."""
     rows: list[list] = []
-    for chap in chapters[:10]:
+    for chap in chapters[:12]:
         rows.append([styled_button(chap, callback_data=f"quiz:chap:{chap[:40]}", style="primary", emoji_key="ncert", settings=settings)])
     rows.append([styled_button("Back to Quiz Menu", callback_data="menu:quiz", emoji_key="home", settings=settings)])
     return InlineKeyboardMarkup(inline_keyboard=rows)

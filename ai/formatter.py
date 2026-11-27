@@ -1,4 +1,4 @@
-"""Post-processor that converts LLM LaTeX & Markdown into clean Telegram HTML."""
+"""Post-processor that converts LLM & dataset LaTeX/Markdown into clean Telegram Unicode/HTML."""
 
 from __future__ import annotations
 
@@ -46,38 +46,37 @@ _SUBSCRIPTS = str.maketrans("0123456789+-", "₀₁₂₃₄₅₆₇₈₉₊�
 
 
 def clean_latex_to_unicode(text: str) -> str:
-    """Replace common LaTeX blocks and commands with readable plain Unicode for Telegram."""
-    out = text
+    """Replace LaTeX blocks, commands, and broken OCR/dataset braces with clean Unicode."""
+    out = text or ""
 
     # Strip display/inline math delimiters: \[ ... \], \( ... \), $$ ... $$, $ ... $
     out = re.sub(r"\\\[(.*?)\\\]", lambda m: m.group(1).strip(), out, flags=re.DOTALL)
     out = re.sub(r"\\\((.*?)\\\)", lambda m: m.group(1).strip(), out, flags=re.DOTALL)
     out = re.sub(r"\$\$(.*?)\$\$", lambda m: m.group(1).strip(), out, flags=re.DOTALL)
-    out = re.sub(r"(?<!\$)\$([^$\n]{1,120})\$(?!\$)", lambda m: m.group(1).strip(), out)
+    out = re.sub(r"(?<!\$)\$([^$\n]{1,200})\$(?!\$)", lambda m: m.group(1).strip(), out)
 
-    # Unwrap \boxed{...}, \text{...}, \mathrm{...}, \mathbf{...}
+    # Unwrap \boxed{...}, \text{...}, \mathrm{...}, \mathbf{...}, \mathit{...}, \operatorname{...}
     for _ in range(3):
-        out = re.sub(r"\\(?:boxed|text|mathrm|mathbf|mathit)\{([^{}]+)\}", r"\1", out)
-        # Convert \frac{a}{b} -> (a/b)
-        out = re.sub(r"\\frac\{([^{}]+)\}\{([^{}]+)\}", r"(\1/\2)", out)
-        # Convert \sqrt{x} -> √(x)
-        out = re.sub(r"\\sqrt\{([^{}]+)\}", r"√(\1)", out)
+        out = re.sub(r"\\(?:boxed|text|mathrm|mathbf|mathit|mathcal|operatorname)\s*\{([^{}]+)\}", r"\1", out)
+        out = re.sub(r"\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}", r"(\1/\2)", out)
+        out = re.sub(r"\\sqrt\s*\{([^{}]+)\}", r"√(\1)", out)
 
     for pattern, repl in _LATEX_SYMBOLS:
         out = re.sub(pattern, repl, out)
 
-    # Simple numeric superscripts/subscripts like ^{2}, ^2, _{0}
-    out = re.sub(r"\^\{([0-9+\-]{1,4})\}", lambda m: m.group(1).translate(_SUPERSCRIPTS), out)
+    # Handle malformed exponents like 10^(-5} or 10^{-10} or 10^2
+    out = re.sub(r"\^[\{\(]([0-9+\-]{1,5})[\}\)]", lambda m: m.group(1).translate(_SUPERSCRIPTS), out)
     out = re.sub(r"\^([0-9])(?![0-9])", lambda m: m.group(1).translate(_SUPERSCRIPTS), out)
-    out = re.sub(r"_\{([0-9+\-]{1,4})\}", lambda m: m.group(1).translate(_SUBSCRIPTS), out)
+    out = re.sub(r"_[\{\(]([0-9+\-]{1,5})[\}\)]", lambda m: m.group(1).translate(_SUBSCRIPTS), out)
     out = re.sub(r"_([0-9])(?![0-9])", lambda m: m.group(1).translate(_SUBSCRIPTS), out)
-    # Clean remaining simple subscripts like A_t -> At or Δ_t -> Δt
     out = re.sub(r"([A-Za-zΔ])_\{?([A-Za-z0-9]{1,3})\}?", r"\1\2", out)
 
-    # Remove stray LaTeX spacing commands like \, \; \! \quad
+    # Remove stray LaTeX spacing commands and leftover single $ or ~
     out = re.sub(r"\\[,;!]", " ", out)
     out = re.sub(r"\\(?:quad|qquad)(?![A-Za-z])", " ", out)
-    return out
+    out = out.replace("~", " ").replace("$", "")
+    out = re.sub(r"[ \t]{2,}", " ", out)
+    return out.strip()
 
 
 def format_ai_response_for_telegram(raw_text: str, max_len: int = 3900) -> str:
@@ -85,11 +84,8 @@ def format_ai_response_for_telegram(raw_text: str, max_len: int = 3900) -> str:
     text = clean_latex_to_unicode(raw_text or "").strip()
     escaped = html_lib.escape(text)
 
-    # Convert Markdown headings (### Heading) -> bold line
     escaped = re.sub(r"(?m)^#{1,4}\s+(.+)$", r"<b>\1</b>", escaped)
-    # Convert **bold** -> <b>bold</b>
     escaped = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", escaped)
-    # Convert `code` -> <code>code</code>
     escaped = re.sub(r"`([^`\n]+)`", r"<code>\1</code>", escaped)
 
     if len(escaped) > max_len:

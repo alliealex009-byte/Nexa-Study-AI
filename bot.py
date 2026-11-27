@@ -13,12 +13,14 @@ from aiogram import Bot, Dispatcher
 
 from ai.ollama import OllamaClient
 from config import Settings, configure_logging
+from database.chats import ChatRepository
 from database.mongo import MongoManager
 from database.progress import ProgressRepository
 from database.questions import QuestionRepository
 from database.users import UserRepository
-from handlers import doubt, image, progress, pyq, quiz, start
+from handlers import admin, doubt, image, progress, pyq, quiz, start
 from middlewares.security import RateLimitMiddleware, SlidingWindowRateLimiter
+from middlewares.tracking import ActivityTrackingMiddleware
 from services.ncert import NCERTRAGService
 from services.ocr import OCRService
 from services.pyq import PYQService
@@ -69,6 +71,7 @@ async def run_bot() -> None:
     mongo.connect()
 
     users = UserRepository(mongo)
+    chats = ChatRepository(mongo)
     questions = QuestionRepository(mongo)
     progress_repo = ProgressRepository(mongo)
 
@@ -97,7 +100,20 @@ async def run_bot() -> None:
         )
 
     bot = Bot(token=settings.telegram_bot_token)
+    bot_username = ""
+    try:
+        me = await bot.get_me()
+        bot_username = me.username or ""
+        logger.info("Authenticated as @%s", bot_username)
+    except Exception as exc:
+        logger.warning("Could not fetch bot username via getMe: %s", exc)
+
     dp = Dispatcher()
+
+    # Track DM users and groups automatically for Owner Panel stats & broadcasts
+    tracker_mw = ActivityTrackingMiddleware(users, chats)
+    dp.message.middleware(tracker_mw)
+    dp.callback_query.middleware(tracker_mw)
 
     limiter = SlidingWindowRateLimiter(
         max_requests=settings.rate_limit_requests,
@@ -107,7 +123,8 @@ async def run_bot() -> None:
     dp.message.middleware(rate_mw)
     dp.callback_query.middleware(rate_mw)
 
-    # Register routers (keep doubt.router last because it catches general text messages)
+    # Register routers (admin before doubt so owner broadcast messages aren't treated as doubts)
+    dp.include_router(admin.router)
     dp.include_router(start.router)
     dp.include_router(image.router)
     dp.include_router(pyq.router)
@@ -117,19 +134,23 @@ async def run_bot() -> None:
 
     # Dependency injection for aiogram 3.x handlers
     dp["settings"] = settings
+    dp["bot_username"] = bot_username
+    dp["mongo"] = mongo
     dp["ollama"] = ollama
     dp["ocr"] = ocr_service
     dp["ncert"] = ncert_service
     dp["pyq_service"] = pyq_service
     dp["quiz_service"] = quiz_service
     dp["users"] = users
+    dp["chats"] = chats
     dp["questions"] = questions
     dp["progress"] = progress_repo
 
     logger.info(
-        "Starting NEXA STUDY AI | NCERT passages: %d | Verified PYQs: %d | MongoDB: %s",
+        "Starting NEXA STUDY AI | NCERT chapters: %d | Verified PYQs: %d | Owners: %d | MongoDB: %s",
         len(ncert_service.list_chapters()),
         len(pyq_service.all_items),
+        len(settings.owner_ids),
         "connected" if mongo.is_connected else "in-memory fallback",
     )
 

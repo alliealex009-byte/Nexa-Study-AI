@@ -19,6 +19,17 @@ def _parse_bool(value: str | None, default: bool = False) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _parse_int_tuple(value: str | None) -> tuple[int, ...]:
+    if not value:
+        return ()
+    result: list[int] = []
+    for part in value.split(","):
+        cleaned = part.strip()
+        if cleaned.lstrip("-").isdigit():
+            result.append(int(cleaned))
+    return tuple(dict.fromkeys(result))
+
+
 class SecretRedactionFilter(logging.Filter):
     """Prevents Telegram tokens, MongoDB credentials, and secrets from appearing in logs."""
 
@@ -83,6 +94,7 @@ class Settings:
     """Application settings loaded from environment variables."""
 
     telegram_bot_token: str
+    owner_ids: tuple[int, ...] = ()
     ollama_base_url: str = "http://127.0.0.1:11434"
     ollama_model: str = "qwen2.5:3b"
     ollama_vision_model: str = ""
@@ -131,6 +143,7 @@ class Settings:
 
         return cls(
             telegram_bot_token=token,
+            owner_ids=_parse_int_tuple(os.getenv("OWNER_IDS", "")),
             ollama_base_url=ollama_url,
             ollama_model=os.getenv("OLLAMA_MODEL", "qwen2.5:3b").strip(),
             ollama_vision_model=os.getenv("OLLAMA_VISION_MODEL", "").strip(),
@@ -157,6 +170,9 @@ class Settings:
             enable_telegram_widgets=_parse_bool(os.getenv("ENABLE_TELEGRAM_WIDGETS"), default=True),
             premium_emoji_ids=emoji_map,
         )
+
+    def is_owner(self, user_id: int | None) -> bool:
+        return user_id is not None and user_id in self.owner_ids
 
     def validate_for_runtime(self) -> None:
         """Validate required runtime secrets before starting polling."""

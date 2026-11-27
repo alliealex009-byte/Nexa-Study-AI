@@ -1,15 +1,16 @@
-"""Tests for zero-repeat question engine and 5K HuggingFace chat-MCQ importer."""
+"""Tests for zero-repeat question engine, option balancing, LaTeX poll cleanup, and 5K importer."""
 
 from __future__ import annotations
 
 import unittest
 from pathlib import Path
 
+from ai.formatter import clean_latex_to_unicode
 from config import Settings
 from database.mongo import MongoManager
 from database.progress import ProgressRepository
 from scripts.import_opensource_pyqs import normalize_record
-from services.pyq import PYQService
+from services.pyq import PYQService, shuffle_options_safely
 
 PYQ_DIR = Path(__file__).resolve().parent.parent / "data" / "pyq"
 
@@ -35,15 +36,38 @@ class TestNoRepeatAndImporter(unittest.TestCase):
             seen_drawn.append(item.pyq_id)
             self.progress.mark_pyq_seen(500, item.pyq_id)
 
-        # Every single question drawn across the entire pool is strictly unique!
         self.assertEqual(len(set(seen_drawn)), pool_size)
 
-        # Next draw signals pool wrap-around cleanly instead of crashing
         _, wrapped_after = self.pyq.random_question(
             exam="NEET UG",
             exclude_ids=self.progress.get_seen_pyq_ids(500),
         )
         self.assertTrue(wrapped_after)
+
+    def test_option_shuffling_balances_all_a_datasets_and_preserves_positional_options(self) -> None:
+        base_opts = {"A": "Correct Value", "B": "Wrong 1", "C": "Wrong 2", "D": "Wrong 3"}
+        letters_seen = set()
+        for idx in range(40):
+            new_opts, new_correct = shuffle_options_safely(f"q-{idx}", base_opts, "A")
+            self.assertEqual(new_opts[new_correct], "Correct Value")
+            letters_seen.add(new_correct)
+        # All 4 answer letters A, B, C, D should appear across 40 questions
+        self.assertEqual(letters_seen, {"A", "B", "C", "D"})
+
+        # Positional options like "All of the above" must NOT be shuffled
+        pos_opts = {"A": "Opt 1", "B": "Opt 2", "C": "Both A and B", "D": "All of the above"}
+        unchanged_opts, unchanged_corr = shuffle_options_safely("pos-1", pos_opts, "D")
+        self.assertEqual(unchanged_opts, pos_opts)
+        self.assertEqual(unchanged_corr, "D")
+
+    def test_cleans_broken_huggingface_latex_for_polls(self) -> None:
+        raw = r"The ionisation constant is $1.77 \times 10^(-5}$ at $298 \mathrm{~K}$."
+        cleaned = clean_latex_to_unicode(raw)
+        self.assertNotIn("$", cleaned)
+        self.assertNotIn(r"\times", cleaned)
+        self.assertNotIn(r"\mathrm", cleaned)
+        self.assertIn("1.77 × 10⁻⁵", cleaned)
+        self.assertIn("298 K", cleaned)
 
     def test_parses_huggingface_chat_formatted_mcq_row(self) -> None:
         hf_row = {

@@ -253,7 +253,7 @@ async def cb_send_widget(
             height=300,
         )
     elif kind == "pyq":
-        item = pyq_service.random_question(exam=user.get("target_exam"))
+        item, _ = pyq_service.random_question(exam=user.get("target_exam"))
         if not item:
             await callback.answer("No PYQs available.", show_alert=True)
             return

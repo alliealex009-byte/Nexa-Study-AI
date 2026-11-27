@@ -1,4 +1,4 @@
-"""Interactive auto-advancing MCQ quiz handlers (60s Physics / 45s Bio & Chem) with 4-min cleanup."""
+"""Interactive auto-advancing, zero-repeat MCQ quiz handlers (60s Physics / 45s Bio & Chem)."""
 
 from __future__ import annotations
 
@@ -20,7 +20,6 @@ from services.quiz import QuizService, QuizSession, question_time_limit_seconds
 
 router = Router(name="quiz")
 
-# Track per-user question auto-advance timers
 _QUIZ_TIMERS: dict[int, asyncio.Task] = {}
 
 
@@ -155,7 +154,7 @@ async def cb_quiz_menu(callback: CallbackQuery, users: UserRepository, settings:
     exam = _user_exam_filter(users, callback.from_user.id) or "NEET/JEE"
     if callback.message:
         await callback.message.answer(
-            f"🎯 <b>Practice Quiz ({html_lib.escape(exam)} Track)</b>\n\n"
+            f"🎯 <b>Practice Quiz ({html_lib.escape(exam)} Track • Zero Repeats)</b>\n\n"
             "⏱️ Auto-next timers: <b>45s</b> (Biology/Chemistry) • <b>60s</b> (Physics)\n"
             "Choose a quiz mode below:",
             reply_markup=quiz_mode_keyboard(settings),
@@ -195,19 +194,22 @@ async def cb_start_chapter_quiz(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Start a chapter-wise quiz filtered to the student's exam."""
+    """Start a zero-repeat chapter-wise quiz filtered to the student's exam."""
     chapter = callback.data.split("quiz:chap:", 1)[1]
     exam = _user_exam_filter(users, callback.from_user.id)
+    seen = progress.get_seen_pyq_ids(callback.from_user.id)
     session = quiz_service.start_quiz(
         callback.from_user.id,
         mode="chapter",
         exam=exam,
         chapter=chapter,
         num_questions=5,
+        exclude_ids=seen,
     )
     if session is None or not callback.message:
         await callback.answer("No questions found for this chapter.", show_alert=True)
         return
+    progress.mark_pyq_seen(callback.from_user.id, [q.pyq_id for q in session.questions])
     await callback.answer(f"Started {chapter} quiz!")
     await _send_current_question_with_timer(
         bot=bot,
@@ -229,10 +231,11 @@ async def cb_start_quiz(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Start a subject-wise, mixed, or timed quiz strictly filtered to NEET or JEE."""
+    """Start a zero-repeat subject-wise, mixed, or timed quiz filtered to NEET or JEE."""
     _, _, mode, subject = callback.data.split(":", 3)
     exam = _user_exam_filter(users, callback.from_user.id)
     time_limit = 300 if mode == "timed" else None
+    seen = progress.get_seen_pyq_ids(callback.from_user.id)
     session = quiz_service.start_quiz(
         callback.from_user.id,
         mode=mode,
@@ -240,6 +243,7 @@ async def cb_start_quiz(
         subject=None if subject == "mixed" else subject,
         num_questions=5,
         time_limit_seconds=time_limit,
+        exclude_ids=seen,
     )
     if session is None or not callback.message:
         await callback.answer(
@@ -247,6 +251,7 @@ async def cb_start_quiz(
             show_alert=True,
         )
         return
+    progress.mark_pyq_seen(callback.from_user.id, [q.pyq_id for q in session.questions])
     await callback.answer("Quiz started!")
     await _send_current_question_with_timer(
         bot=bot,

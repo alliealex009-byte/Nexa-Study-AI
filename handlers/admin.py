@@ -1,4 +1,4 @@
-"""Owner Panel handler: live stats (DM users, groups, activity, health) & safe broadcasting."""
+"""Owner Panel handler: live stats, 1-tap 5K open-source PYQ sync, and safe broadcasting."""
 
 from __future__ import annotations
 
@@ -19,13 +19,13 @@ from database.mongo import MongoManager
 from database.progress import ProgressRepository
 from database.users import UserRepository
 from keyboards.styles import styled_button
+from scripts.import_opensource_pyqs import sync_opensource_5k
 from services.ncert import NCERTRAGService
 from services.pyq import PYQService
 
 logger = logging.getLogger(__name__)
 router = Router(name="admin")
 
-# Tracks which owner is currently composing a broadcast: owner_id -> target ("dm"|"groups"|"all")
 _PENDING_BROADCAST: dict[int, str] = {}
 
 
@@ -43,6 +43,9 @@ def owner_panel_keyboard(settings: Settings | None = None) -> InlineKeyboardMark
             ],
             [
                 styled_button("🌐 Broadcast All (DM + Groups)", callback_data="admin:bcast:all", style="danger", settings=settings),
+            ],
+            [
+                styled_button("📥 Sync 5K Open-Source Bank", callback_data="admin:sync5k", style="primary", settings=settings),
             ],
             [
                 styled_button("Main Menu", callback_data="menu:home", emoji_key="home", settings=settings),
@@ -126,7 +129,7 @@ def _build_stats_html(
         f"• Total Questions Solved: <b>{p['total_solved']}</b>\n"
         f"• Total Quizzes Completed: <b>{p['total_quizzes']}</b>\n\n"
         "<b>📚 Content &amp; Storage:</b>\n"
-        f"• Verified 10-Yr PYQs: <b>{len(pyq_service.all_items)}</b>\n"
+        f"• Loaded PYQ / Prep Bank: <b>{len(pyq_service.all_items)}</b> questions\n"
         f"• Indexed NCERT Chapters: <b>{len(ncert.list_chapters())}</b>\n"
         f"• Database: <b>{'MongoDB Connected' if mongo.is_connected else 'In-Memory Fallback'}</b>"
         f"{recent_group_lines}"
@@ -144,11 +147,52 @@ async def cmd_owner_panel(message: Message, settings: Settings) -> None:
 
     await message.answer(
         "👑 <b>NEXA STUDY AI — Owner Panel</b>\n\n"
-        "Manage broadcasts, inspect DM &amp; Group stats, and check live AI health.\n"
+        "Manage broadcasts, inspect DM &amp; Group stats, sync 5,000+ open-source questions, and check live AI health.\n"
         "Quick command: <code>/broadcast &lt;message&gt;</code> (or reply to any photo/post with <code>/broadcast</code>).",
         reply_markup=owner_panel_keyboard(settings),
         parse_mode="HTML",
     )
+
+
+@router.callback_query(F.data == "admin:sync5k")
+async def cb_admin_sync_5k(
+    callback: CallbackQuery,
+    settings: Settings,
+    pyq_service: PYQService,
+) -> None:
+    """Download up to 5,000 open-source NEET/JEE questions from HuggingFace and hot-reload PYQService."""
+    if not settings.is_owner(callback.from_user.id):
+        await callback.answer("⛔ Owner access only.", show_alert=True)
+        return
+    if not callback.message:
+        await callback.answer()
+        return
+
+    await callback.answer("Starting 5K open-source sync…")
+    status = await callback.message.answer(
+        "📥 Downloading up to <b>5,000</b> open-source NEET &amp; JEE questions from HuggingFace…\n"
+        "<i>This runs in the background and hot-reloads automatically when done.</i>",
+        parse_mode="HTML",
+    )
+    try:
+        out_path = settings.data_dir / "pyq" / "opensource_5k_bank.json"
+        imported = await asyncio.to_thread(sync_opensource_5k, out_path, 5000)
+        total_loaded = pyq_service.reload()
+        await status.edit_text(
+            f"✅ <b>Open-Source Sync Complete!</b>\n"
+            f"• Imported: <b>{imported}</b> questions\n"
+            f"• Total Active Question Bank: <b>{total_loaded}</b> questions (zero-repeat ready!)",
+            reply_markup=owner_panel_keyboard(settings),
+            parse_mode="HTML",
+        )
+    except Exception as exc:
+        logger.warning("5K open-source sync failed: %s", exc)
+        await status.edit_text(
+            f"⚠️ Sync failed: <code>{html_lib.escape(str(exc)[:250])}</code>\n"
+            "You can also run <code>python3 scripts/import_opensource_pyqs.py --sync-5k</code> directly on your VPS.",
+            reply_markup=owner_panel_keyboard(settings),
+            parse_mode="HTML",
+        )
 
 
 @router.message(Command("broadcast"))

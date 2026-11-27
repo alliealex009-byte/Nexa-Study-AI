@@ -1,4 +1,9 @@
-"""Per-user sliding-window rate limiting and input sanitization utilities."""
+"""Per-user sliding-window rate limiting and input sanitization utilities.
+
+Navigation button taps use a generous limit (45/min) so students never hit false
+rate-limit popups while browsing menus, while heavy AI/OCR requests enforce a
+stricter 2-CPU server limit.
+"""
 
 from __future__ import annotations
 
@@ -63,12 +68,34 @@ class SlidingWindowRateLimiter:
         return True, 0
 
 
-class RateLimitMiddleware(BaseMiddleware):
-    """aiogram 3.x middleware that enforces per-user rate limits."""
+def _is_heavy_ai_event(event: TelegramObject) -> bool:
+    """Return True only for events that actually invoke Ollama AI or Tesseract OCR."""
+    if isinstance(event, CallbackQuery):
+        data = (getattr(event, "data", "") or "")
+        # Only re-explain buttons invoke Ollama; menu/PYQ/quiz/NCERT taps are instant!
+        return data.startswith("mode:")
+    if isinstance(event, Message):
+        if getattr(event, "photo", None) or getattr(event, "document", None):
+            return True
+        text = (getattr(event, "text", "") or "").strip()
+        if text.startswith("/ask"):
+            return True
+        if text and not text.startswith("/"):
+            return True
+    return False
 
-    def __init__(self, limiter: SlidingWindowRateLimiter) -> None:
+
+class RateLimitMiddleware(BaseMiddleware):
+    """aiogram 3.x middleware with separate AI/OCR and light-navigation rate limits."""
+
+    def __init__(
+        self,
+        ai_limiter: SlidingWindowRateLimiter,
+        nav_limiter: SlidingWindowRateLimiter | None = None,
+    ) -> None:
         super().__init__()
-        self._limiter = limiter
+        self._ai_limiter = ai_limiter
+        self._nav_limiter = nav_limiter or SlidingWindowRateLimiter(max_requests=45, window_seconds=60)
 
     async def __call__(
         self,
@@ -78,11 +105,14 @@ class RateLimitMiddleware(BaseMiddleware):
     ) -> Any:
         user = getattr(event, "from_user", None)
         if user is not None:
-            allowed, retry_after = self._limiter.check(user.id)
+            is_ai = _is_heavy_ai_event(event)
+            limiter = self._ai_limiter if is_ai else self._nav_limiter
+            allowed, retry_after = limiter.check(user.id)
             if not allowed:
                 notice = (
-                    f"⏳ You're sending requests a bit fast for our 2-CPU server. "
-                    f"Please wait {retry_after}s and try again."
+                    f"⏳ Please wait {retry_after}s before sending another AI question."
+                    if is_ai
+                    else f"⏳ Slow down a little — try again in {retry_after}s."
                 )
                 if isinstance(event, Message):
                     await event.answer(notice)

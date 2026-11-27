@@ -1,0 +1,313 @@
+{
+  "description": "Complete Class 11 & 12 NCERT Physics chapter summaries (28 chapters).",
+  "passages": [
+    {
+      "id": "phy-11-ch01",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 1,
+      "chapter_title": "Units and Measurements",
+      "section": "Chapter 1 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "SI base units, dimensional analysis, significant figures, and error propagation. Planck's constant h and angular momentum L share dimensions [ML²T⁻¹]."
+    },
+    {
+      "id": "phy-11-ch02",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 2,
+      "chapter_title": "Motion in a Straight Line",
+      "section": "Chapter 2 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Kinematics equations for uniform acceleration: v = u + at, s = ut + (1/2)at², v² = u² + 2as. Area under v-t graph gives displacement; slope gives acceleration."
+    },
+    {
+      "id": "phy-11-ch03",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 3,
+      "chapter_title": "Motion in a Plane",
+      "section": "Chapter 3 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Vector addition, projectile motion (R = u² sin(2θ)/g, H = u² sin²θ/(2g), T = 2u sinθ/g), and uniform circular motion centripetal acceleration ac = v²/r."
+    },
+    {
+      "id": "phy-11-ch04",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 4,
+      "chapter_title": "Laws of Motion",
+      "section": "Chapter 4 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Newton's laws: F = dp/dt = ma, impulse J = Δp, conservation of linear momentum, static friction fs ≤ μs N, kinetic friction fk = μk N, banked road vmax = √(rg tanθ)."
+    },
+    {
+      "id": "phy-11-ch05",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 5,
+      "chapter_title": "Work, Energy and Power",
+      "section": "Chapter 5 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Work W = F·s cosθ, Work-Energy Theorem Wnet = ΔKE, conservation of mechanical energy, elastic vs inelastic collisions, power P = F·v."
+    },
+    {
+      "id": "phy-11-ch06",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 6,
+      "chapter_title": "System of Particles and Rotational Motion",
+      "section": "Chapter 6 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Centre of mass, torque τ = r × F = Iα, angular momentum L = Iω, parallel axis theorem I = Icm + Md², solid sphere I = (2/5)MR², hollow sphere I = (2/3)MR²."
+    },
+    {
+      "id": "phy-11-ch07",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 7,
+      "chapter_title": "Gravitation",
+      "section": "Chapter 7 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Newton's law F = Gm₁m₂/r², acceleration due to gravity g = GM/R², orbital velocity vo = √(GM/R), escape velocity ve = √(2GM/R) ≈ 11.2 km/s on Earth, Kepler's laws (T² ∝ r³)."
+    },
+    {
+      "id": "phy-11-ch08",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 8,
+      "chapter_title": "Mechanical Properties of Solids",
+      "section": "Chapter 8 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Hooke's law: Stress = E × Strain, Young's modulus Y = FL/(AΔL), bulk modulus B, shear modulus G, elastic potential energy per unit volume u = (1/2) × stress × strain."
+    },
+    {
+      "id": "phy-11-ch09",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 9,
+      "chapter_title": "Mechanical Properties of Fluids",
+      "section": "Chapter 9 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Pascal's law, Archimedes' principle, continuity equation A₁v₁ = A₂v₂, Bernoulli's equation P + (1/2)ρv² + ρgh = constant, Stokes' law F = 6πηrv, surface tension & capillary rise."
+    },
+    {
+      "id": "phy-11-ch10",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 10,
+      "chapter_title": "Thermal Properties of Matter",
+      "section": "Chapter 10 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Thermal expansion (α, β=2α, γ=3α), calorimetry Q = mcΔT, latent heat Q = mL, conduction dQ/dt = kAΔT/L, Wien's displacement law λm T = b, Stefan-Boltzmann law E = σT⁴."
+    },
+    {
+      "id": "phy-11-ch11",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 11,
+      "chapter_title": "Thermodynamics",
+      "section": "Chapter 11 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "First law ΔQ = ΔU + ΔW, isothermal work W = nRT ln(V₂/V₁), adiabatic PV^γ = const, Mayer's relation Cp - Cv = R, Carnot efficiency η = 1 - Tc/Th."
+    },
+    {
+      "id": "phy-11-ch12",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 12,
+      "chapter_title": "Kinetic Theory",
+      "section": "Chapter 12 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Ideal gas PV = nRT, pressure P = (1/3)ρ v²rms, vrms = √(3RT/M), equipartition of energy (1/2)kBT per degree of freedom, mean free path λ = 1/(√2 π d² n)."
+    },
+    {
+      "id": "phy-11-ch13",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 13,
+      "chapter_title": "Oscillations",
+      "section": "Chapter 13 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Simple Harmonic Motion: a = -ω²x, T = 2π√(m/k) for spring, T = 2π√(L/g) for simple pendulum, total energy E = (1/2)kA²."
+    },
+    {
+      "id": "phy-11-ch14",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 14,
+      "chapter_title": "Waves",
+      "section": "Chapter 14 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Wave speed v = fλ, transverse wave on string v = √(T/μ), speed of sound v = √(γRT/M), organ pipes (open fn = nv/2L, closed odd harmonics), beats fbeat = |f₁ - f₂|."
+    },
+    {
+      "id": "phy-12-ch01",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 1,
+      "chapter_title": "Electric Charges and Fields",
+      "section": "Chapter 1 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Coulomb's law F = k|q₁q₂|/r² (k = 9×10⁹ N·m²/C²), electric field E = F/q, dipole torque τ = pE sinθ, Gauss's law Φ = q_enclosed/ε₀."
+    },
+    {
+      "id": "phy-12-ch02",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 2,
+      "chapter_title": "Electrostatic Potential and Capacitance",
+      "section": "Chapter 2 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Potential V = kq/r, E = -dV/dr, parallel plate capacitor C = ε₀A/d, dielectric C' = KC, series 1/Ceq = Σ1/Ci, parallel Ceq = ΣCi, stored energy U = (1/2)CV²."
+    },
+    {
+      "id": "phy-12-ch03",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 3,
+      "chapter_title": "Current Electricity",
+      "section": "Chapter 3 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Ohm's law V = IR, drift velocity I = neAvd, resistivity ρ = m/(ne²τ), Kirchhoff's junction & loop rules, Wheatstone bridge balance P/Q = R/S, internal resistance V = E - Ir."
+    },
+    {
+      "id": "phy-12-ch04",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 4,
+      "chapter_title": "Moving Charges and Magnetism",
+      "section": "Chapter 4 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Lorentz force F = q(E + v × B), Biot-Savart law, circular loop center B = μ₀I/(2R), solenoid B = μ₀nI, force per unit length between parallel wires F/L = μ₀I₁I₂/(2πd)."
+    },
+    {
+      "id": "phy-12-ch05",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 5,
+      "chapter_title": "Magnetism and Matter",
+      "section": "Chapter 5 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Bar magnet dipole moment m = NIA, torque τ = mB sinθ, diamagnetic (χ < 0), paramagnetic (χ > 0 small), ferromagnetic (χ >> 1)."
+    },
+    {
+      "id": "phy-12-ch06",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 6,
+      "chapter_title": "Electromagnetic Induction",
+      "section": "Chapter 6 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Faraday's law ε = -dΦB/dt, Lenz's law (conservation of energy), motional emf ε = Blv, self-inductance ε = -L(dI/dt), inductor energy U = (1/2)LI²."
+    },
+    {
+      "id": "phy-12-ch07",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 7,
+      "chapter_title": "Alternating Current",
+      "section": "Chapter 7 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "RMS values Irms = I₀/√2, inductive reactance XL = ωL, capacitive reactance XC = 1/(ωC), LCR impedance Z = √(R² + (XL - XC)²), resonance ω₀ = 1/√(LC), transformer Vs/Vp = Ns/Np."
+    },
+    {
+      "id": "phy-12-ch08",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 8,
+      "chapter_title": "Electromagnetic Waves",
+      "section": "Chapter 8 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Displacement current Id = ε₀(dΦE/dt), transverse nature E ⊥ B ⊥ direction of propagation, speed c = 1/√(μ₀ε₀) = E₀/B₀, EM spectrum from radio to gamma rays."
+    },
+    {
+      "id": "phy-12-ch09",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 9,
+      "chapter_title": "Ray Optics and Optical Instruments",
+      "section": "Chapter 9 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Mirror formula 1/v + 1/u = 1/f, Snell's law n₁ sin i = n₂ sin r, total internal reflection sin ic = 1/n, lens maker's formula, power P = 1/f(m), prism δm = (n-1)A."
+    },
+    {
+      "id": "phy-12-ch10",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 10,
+      "chapter_title": "Wave Optics",
+      "section": "Chapter 10 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Huygens' principle, Young's Double Slit Experiment fringe width β = λD/d, constructive Δx = nλ, destructive Δx = (n+1/2)λ, single-slit diffraction, Brewster's law tan ip = n."
+    },
+    {
+      "id": "phy-12-ch11",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 11,
+      "chapter_title": "Dual Nature of Radiation and Matter",
+      "section": "Chapter 11 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Photoelectric effect Kmax = hν - φ₀ = eV₀, threshold frequency ν₀ = φ₀/h, de Broglie wavelength λ = h/p = h/√(2mK)."
+    },
+    {
+      "id": "phy-12-ch12",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 12,
+      "chapter_title": "Atoms",
+      "section": "Chapter 12 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Rutherford nuclear model, Bohr's postulates: L = nh/(2π), radius rn = 0.529 n²/Z Å, energy En = -13.6 Z²/n² eV, Lyman (UV), Balmer (visible), Paschen (IR) series."
+    },
+    {
+      "id": "phy-12-ch13",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 13,
+      "chapter_title": "Nuclei",
+      "section": "Chapter 13 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Nuclear radius R = R₀ A^(1/3), mass defect Δm and binding energy Eb = Δm c², nuclear fission vs fusion, mass-energy equivalence E = mc²."
+    },
+    {
+      "id": "phy-12-ch14",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 14,
+      "chapter_title": "Semiconductor Electronics",
+      "section": "Chapter 14 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Intrinsic vs extrinsic (n-type pentavalent, p-type trivalent) semiconductors, p-n junction diode forward/reverse bias, half-wave & full-wave rectifiers, logic gates (AND, OR, NOT, NAND, NOR)."
+    }
+  ]
+}

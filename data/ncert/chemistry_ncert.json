@@ -1,0 +1,214 @@
+{
+  "description": "Complete Class 11 & 12 NCERT Chemistry chapter summaries (19 chapters).",
+  "passages": [
+    {
+      "id": "che-11-ch01",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 1,
+      "chapter_title": "Some Basic Concepts of Chemistry",
+      "section": "Chapter 1 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Mole concept (NA = 6.022×10²³), empirical & molecular formula, limiting reagent, molarity M = mol/L, molality m = mol/kg solvent (temperature independent)."
+    },
+    {
+      "id": "che-11-ch02",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 2,
+      "chapter_title": "Structure of Atom",
+      "section": "Chapter 2 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Quantum numbers (n, l, m, s), max electrons in subshell 2(2l+1), Aufbau principle, Pauli exclusion principle, Hund's rule, Heisenberg uncertainty Δx·Δp ≥ h/(4π)."
+    },
+    {
+      "id": "che-11-ch03",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 3,
+      "chapter_title": "Classification of Elements and Periodicity in Properties",
+      "section": "Chapter 3 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Periodic trends: atomic radius decreases across a period & increases down a group; ionization enthalpy & electronegativity increase across a period; F is most electronegative, Cl has highest electron gain enthalpy."
+    },
+    {
+      "id": "che-11-ch04",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 4,
+      "chapter_title": "Chemical Bonding and Molecular Structure",
+      "section": "Chapter 4 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "VSEPR repulsion order lp-lp > lp-bp > bp-bp, hybridisation (sp, sp², sp³, sp³d, sp³d²), Molecular Orbital Theory bond order = (Nb - Na)/2, O2 has BO = 2 and is paramagnetic."
+    },
+    {
+      "id": "che-11-ch05",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 5,
+      "chapter_title": "Thermodynamics",
+      "section": "Chapter 5 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "First law ΔU = q + w, enthalpy ΔH = ΔU + ΔngRT, Hess's law, entropy ΔS, Gibbs free energy ΔG = ΔH - TΔS (spontaneous if ΔG < 0), ΔG° = -RT ln K."
+    },
+    {
+      "id": "che-11-ch06",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 6,
+      "chapter_title": "Equilibrium",
+      "section": "Chapter 6 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Law of mass action Kc, Kp = Kc(RT)^Δng, Le Chatelier's principle, Brønsted-Lowry & Lewis acids/bases, pH = -log[H+], Henderson-Hasselbalch buffer equation, solubility product Ksp."
+    },
+    {
+      "id": "che-11-ch07",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 7,
+      "chapter_title": "Redox Reactions",
+      "section": "Chapter 7 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Oxidation (loss of e⁻ / increase in oxidation number), reduction (gain of e⁻), disproportionation reactions, balancing by ion-electron and oxidation number methods."
+    },
+    {
+      "id": "che-11-ch08",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 8,
+      "chapter_title": "Organic Chemistry: Some Basic Principles and Techniques",
+      "section": "Chapter 8 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "IUPAC nomenclature, inductive (+I/-I), resonance, electromeric, and hyperconjugation effects; carbocation stability 3° > 2° > 1° > CH3+; electrophiles vs nucleophiles."
+    },
+    {
+      "id": "che-11-ch09",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 9,
+      "chapter_title": "Hydrocarbons",
+      "section": "Chapter 9 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Alkanes (Wurtz reaction, free radical halogenation), alkenes (Markovnikov & anti-Markovnikov/peroxide addition, ozonolysis), alkynes (acidic terminal H), benzene electrophilic substitution."
+    },
+    {
+      "id": "che-12-ch01",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 1,
+      "chapter_title": "Solutions",
+      "section": "Chapter 1 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Henry's law p = KH x, Raoult's law p₁ = p₁° x₁, ideal solutions (ΔmixH = 0, ΔmixV = 0), colligative properties (ΔTb = i Kb m, ΔTf = i Kf m, π = iCRT), van't Hoff factor i."
+    },
+    {
+      "id": "che-12-ch02",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 2,
+      "chapter_title": "Electrochemistry",
+      "section": "Chapter 2 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Nernst equation E = E° - (0.0591/n) log Q at 298 K, ΔG° = -nFE°cell, Kohlrausch's law of independent migration of ions, Faraday's laws of electrolysis."
+    },
+    {
+      "id": "che-12-ch03",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 3,
+      "chapter_title": "Chemical Kinetics",
+      "section": "Chapter 3 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Rate law & order vs molecularity, zero-order t1/2 = [R]₀/(2k), first-order k = (2.303/t) log([R]₀/[R]) and t1/2 = 0.693/k (independent of [R]₀), Arrhenius equation k = A e^(-Ea/RT)."
+    },
+    {
+      "id": "che-12-ch04",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 4,
+      "chapter_title": "The d- and f-Block Elements",
+      "section": "Chapter 4 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Variable oxidation states, coloured ions (d-d transitions), spin-only magnetic moment μ = √(n(n+2)) BM, KMnO4 & K2Cr2O7 oxidizing properties, lanthanoid contraction."
+    },
+    {
+      "id": "che-12-ch05",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 5,
+      "chapter_title": "Coordination Compounds",
+      "section": "Chapter 5 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Werner's theory, IUPAC naming, Valence Bond Theory, Crystal Field Theory: Δt = (4/9) Δo, spectrochemical series (CN⁻, CO strong field; I⁻, Br⁻ weak field), isomerism."
+    },
+    {
+      "id": "che-12-ch06",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 6,
+      "chapter_title": "Haloalkanes and Haloarenes",
+      "section": "Chapter 6 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "SN2 (single step, 1° > 2° > 3°, Walden inversion) vs SN1 (carbocation, 3° > 2° > 1°, racemisation), Zaitsev elimination, Finkelstein & Swarts reactions, aryl halide low reactivity."
+    },
+    {
+      "id": "che-12-ch07",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 7,
+      "chapter_title": "Alcohols, Phenols and Ethers",
+      "section": "Chapter 7 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Lucas test (3° immediate turbidity, 2° 5 min, 1° no turbidity at RT), acidic nature of phenols, Reimer-Tiemann & Kolbe reactions, Williamson ether synthesis."
+    },
+    {
+      "id": "che-12-ch08",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 8,
+      "chapter_title": "Aldehydes, Ketones and Carboxylic Acids",
+      "section": "Chapter 8 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Nucleophilic addition, Tollens' reagent (ammoniacal AgNO3 silver mirror for aldehydes), Fehling's test, Aldol condensation (α-H required), Cannizzaro reaction (no α-H), HVZ reaction."
+    },
+    {
+      "id": "che-12-ch09",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 9,
+      "chapter_title": "Amines",
+      "section": "Chapter 9 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Basicity in aqueous solution (2° > 1° > 3° for methylamines), Gabriel phthalimide synthesis, Hoffmann bromamide degradation (1 carbon less), Hinsberg test, diazonium salt Sandmeyer reaction."
+    },
+    {
+      "id": "che-12-ch10",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 10,
+      "chapter_title": "Biomolecules",
+      "section": "Chapter 10 Core Summary",
+      "page": "",
+      "verified": true,
+      "content": "Carbohydrates (glucose, sucrose non-reducing, starch, cellulose), amino acids & zwitterion, peptide bond, protein structures (1°–4°), DNA vs RNA bases (T vs U), fat/water soluble vitamins."
+    }
+  ]
+}

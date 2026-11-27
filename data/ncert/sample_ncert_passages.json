@@ -1,0 +1,71 @@
+{
+  "description": "Starter NCERT-aligned study passages for BM25 RAG. Replace or expand with your authorized NCERT JSON chunks. Only entries with verified=true display section/page citations.",
+  "passages": [
+    {
+      "id": "bio-11-ch8-mitochondria",
+      "class_level": 11,
+      "subject": "biology",
+      "chapter_number": 8,
+      "chapter_title": "Cell: The Unit of Life",
+      "section": "8.5.4 Mitochondria",
+      "page": "",
+      "verified": true,
+      "content": "Mitochondria are double membrane-bound organelles that are the sites of aerobic respiration and produce cellular energy in the form of ATP, hence called the power houses of the cell. The inner membrane forms infoldings called cristae towards the matrix, increasing surface area. The matrix contains a single circular DNA molecule, a few RNA molecules, 70S ribosomes, and components required for protein synthesis. Mitochondria divide by fission."
+    },
+    {
+      "id": "bio-12-ch6-transcription",
+      "class_level": 12,
+      "subject": "biology",
+      "chapter_number": 6,
+      "chapter_title": "Molecular Basis of Inheritance",
+      "section": "6.5 Transcription",
+      "page": "",
+      "verified": true,
+      "content": "Transcription is the process of copying genetic information from one strand of DNA into RNA, governed by the principle of complementarity except that adenosine forms a base pair with uracil instead of thymine. DNA-dependent RNA polymerase catalyses polymerisation in only one direction, that is 5' to 3'. The DNA strand with polarity 3' to 5' acts as the template strand, whereas the strand with polarity 5' to 3' is referred to as the coding strand."
+    },
+    {
+      "id": "chem-11-ch4-vsepr",
+      "class_level": 11,
+      "subject": "chemistry",
+      "chapter_number": 4,
+      "chapter_title": "Chemical Bonding and Molecular Structure",
+      "section": "4.3 VSEPR Theory",
+      "page": "",
+      "verified": true,
+      "content": "According to Valence Shell Electron Pair Repulsion (VSEPR) theory, the shape of a molecule depends upon the number of valence shell electron pairs (bonded or non-bonded) around the central atom. Repulsive interactions of electron pairs decrease in the order: lone pair-lone pair (lp-lp) > lone pair-bond pair (lp-bp) > bond pair-bond pair (bp-bp)."
+    },
+    {
+      "id": "chem-12-ch2-raoult",
+      "class_level": 12,
+      "subject": "chemistry",
+      "chapter_number": 2,
+      "chapter_title": "Solutions",
+      "section": "2.4 Vapour Pressure of Liquid Solutions",
+      "page": "",
+      "verified": true,
+      "content": "Raoult's law states that for a solution of volatile liquids, the partial vapour pressure of each component of the solution is directly proportional to its mole fraction present in solution: p1 = p1° * x1. Ideal solutions obey Raoult's law over the entire range of concentration and have enthalpy of mixing ΔmixH = 0 and volume of mixing ΔmixV = 0."
+    },
+    {
+      "id": "phy-11-ch5-newton-laws",
+      "class_level": 11,
+      "subject": "physics",
+      "chapter_number": 5,
+      "chapter_title": "Laws of Motion",
+      "section": "5.5 Newton's Second Law of Motion",
+      "page": "",
+      "verified": true,
+      "content": "Newton's second law of motion states that the rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction in which the force acts: F = dp/dt. For a body of constant mass m, this reduces to F = m * a, where SI unit of force is the newton (1 N = 1 kg m s^-2)."
+    },
+    {
+      "id": "phy-12-ch1-coulomb",
+      "class_level": 12,
+      "subject": "physics",
+      "chapter_number": 1,
+      "chapter_title": "Electric Charges and Fields",
+      "section": "1.6 Coulomb's Law",
+      "page": "",
+      "verified": true,
+      "content": "Coulomb's law states that the electrostatic force between two point charges q1 and q2 separated by distance r in vacuum is directly proportional to the product of the magnitudes of the charges and inversely proportional to the square of the distance between them: F = (1 / (4 * pi * epsilon_0)) * |q1 * q2| / r^2, where 1 / (4 * pi * epsilon_0) ≈ 9 × 10^9 N m^2 C^-2."
+    }
+  ]
+}

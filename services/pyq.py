@@ -5,10 +5,21 @@ from __future__ import annotations
 import json
 import logging
 import random
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+_WORD_RE = re.compile(r"[a-z0-9]+")
+_STOP = {
+    "the", "of", "in", "is", "are", "to", "for", "a", "an", "and", "or", "which",
+    "following", "with", "from", "by", "as", "at", "on", "that", "this", "what",
+}
+
+
+def _norm_tokens(text: str) -> set[str]:
+    return {t for t in _WORD_RE.findall(text.lower()) if len(t) > 2 and t not in _STOP}
 
 
 @dataclass(frozen=True)
@@ -35,12 +46,14 @@ class PYQService:
         self._data_dir = data_dir
         self._items: list[PYQItem] = []
         self._by_id: dict[str, PYQItem] = {}
+        self._question_tokens: list[tuple[PYQItem, set[str]]] = []
         self.reload()
 
     def reload(self) -> int:
         """Load verified PYQs from data/pyq/*.json (deduplicated by pyq_id)."""
         self._items.clear()
         self._by_id.clear()
+        self._question_tokens.clear()
         if not self._data_dir.exists():
             logger.info("PYQ directory %s does not exist yet.", self._data_dir)
             return 0
@@ -69,6 +82,7 @@ class PYQService:
                         continue
                     self._items.append(item)
                     self._by_id[item.pyq_id] = item
+                    self._question_tokens.append((item, _norm_tokens(item.question)))
             except Exception as exc:
                 logger.warning("Failed to load PYQ file %s: %s", path.name, exc)
         return len(self._items)
@@ -141,3 +155,20 @@ class PYQService:
         """Pick a single random prep question matching optional exam/subject/year filters."""
         pool = self.query(exam=exam, subject=subject, year=year, limit=len(self._items) or 1, shuffle=True)
         return pool[0] if pool else None
+
+    def find_matching_pyq(self, text: str, min_overlap: float = 0.65) -> PYQItem | None:
+        """Return a verified PYQ if the student's text/OCR closely matches a known PYQ stem."""
+        query_tokens = _norm_tokens(text)
+        if len(query_tokens) < 4:
+            return None
+
+        best_item: PYQItem | None = None
+        best_ratio = 0.0
+        for item, q_tokens in self._question_tokens:
+            if not q_tokens:
+                continue
+            overlap = len(query_tokens & q_tokens) / len(q_tokens)
+            if overlap >= min_overlap and overlap > best_ratio:
+                best_ratio = overlap
+                best_item = item
+        return best_item

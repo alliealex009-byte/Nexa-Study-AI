@@ -1,4 +1,4 @@
-"""Student progress analytics repository with Today/Weekly/Monthly & global Owner stats."""
+"""Student progress analytics repository with Today/Weekly/Monthly, no-repeat tracking & Owner stats."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from database.mongo import MongoManager
 
 
 class ProgressRepository:
-    """Tracks doubts, quizzes, subject/chapter accuracy, weak topics, and daily/weekly/monthly counts."""
+    """Tracks doubts, quizzes, subject/chapter accuracy, weak topics, daily counts, and seen PYQs."""
 
     def __init__(self, mongo: MongoManager) -> None:
         self._mongo = mongo
@@ -26,6 +26,7 @@ class ProgressRepository:
             "chapters": {},
             "active_days": [],
             "daily_counts": {},
+            "seen_pyq_ids": [],
             "updated_at": datetime.now(timezone.utc),
         }
 
@@ -42,6 +43,7 @@ class ProgressRepository:
         doc["updated_at"] = datetime.now(timezone.utc)
         doc["quiz_scores"] = doc.get("quiz_scores", [])[-20:]
         doc["active_days"] = doc.get("active_days", [])[-35:]
+        doc["seen_pyq_ids"] = doc.get("seen_pyq_ids", [])[-6000:]
         daily = doc.get("daily_counts", {})
         if len(daily) > 35:
             sorted_keys = sorted(daily.keys())[-35:]
@@ -64,6 +66,42 @@ class ProgressRepository:
     @staticmethod
     def _safe_key(name: str) -> str:
         return name.strip().replace(".", "_").replace("$", "")[:64] or "General"
+
+    # --- No-Repeat Question Tracking (works for both DM user_id and Group chat_id) ---
+
+    def get_seen_pyq_ids(self, scope_id: int) -> set[str]:
+        """Return set of PYQ IDs already shown to this user (DM) or group chat."""
+        doc = self._load(scope_id)
+        return set(doc.get("seen_pyq_ids", []))
+
+    def mark_pyq_seen(self, scope_id: int, pyq_ids: str | list[str]) -> None:
+        """Record one or more PYQ IDs as seen so they are never repeated until the pool resets."""
+        ids = [pyq_ids] if isinstance(pyq_ids, str) else list(pyq_ids)
+        if not ids:
+            return
+        doc = self._load(scope_id)
+        seen_list: list[str] = list(doc.get("seen_pyq_ids", []))
+        seen_set = set(seen_list)
+        changed = False
+        for pid in ids:
+            if pid and pid not in seen_set:
+                seen_list.append(pid)
+                seen_set.add(pid)
+                changed = True
+        if changed:
+            doc["seen_pyq_ids"] = seen_list
+            self._save(scope_id, doc)
+
+    def reset_seen_pyq_ids(self, scope_id: int, subset_to_clear: set[str] | None = None) -> None:
+        """Reset seen PYQ IDs once the student/group has finished all questions in a pool."""
+        doc = self._load(scope_id)
+        if subset_to_clear is None:
+            doc["seen_pyq_ids"] = []
+        else:
+            doc["seen_pyq_ids"] = [pid for pid in doc.get("seen_pyq_ids", []) if pid not in subset_to_clear]
+        self._save(scope_id, doc)
+
+    # --- Doubt & Quiz Recording ---
 
     def record_doubt(self, user_id: int, subject: str, chapter: str = "") -> dict[str, Any]:
         """Record an AI doubt solved by the student."""

@@ -85,6 +85,7 @@ class Settings:
     telegram_bot_token: str
     ollama_base_url: str = "http://127.0.0.1:11434"
     ollama_model: str = "qwen2.5:3b"
+    ollama_vision_model: str = ""
     ollama_timeout_seconds: float = 120.0
     ollama_num_threads: int = 2
     ollama_num_ctx: int = 2048
@@ -132,6 +133,7 @@ class Settings:
             telegram_bot_token=token,
             ollama_base_url=ollama_url,
             ollama_model=os.getenv("OLLAMA_MODEL", "qwen2.5:3b").strip(),
+            ollama_vision_model=os.getenv("OLLAMA_VISION_MODEL", "").strip(),
             ollama_timeout_seconds=float(os.getenv("OLLAMA_TIMEOUT_SECONDS", "120")),
             ollama_num_threads=max(1, int(os.getenv("OLLAMA_NUM_THREADS", "2"))),
             ollama_num_ctx=max(512, int(os.getenv("OLLAMA_NUM_CTX", "2048"))),

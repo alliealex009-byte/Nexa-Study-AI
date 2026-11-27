@@ -75,6 +75,7 @@ class MongoManager:
         if self._db is None:
             return
         self._db["users"].create_index([("user_id", ASCENDING)], unique=True)
+        self._db["chats"].create_index([("chat_id", ASCENDING)], unique=True)
         self._db["questions"].create_index([("user_id", ASCENDING), ("created_at", DESCENDING)])
         self._db["questions"].create_index(
             [("created_at", ASCENDING)],

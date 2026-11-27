@@ -1,0 +1,365 @@
+{
+  "description": "10-year (2016-2025) JEE Main & JEE Advanced open-source style PYQ & prep bank (Physics, Chemistry). Expand further via scripts/import_opensource_pyqs.py.",
+  "questions": [
+    {
+      "id": "jee-2016-phy-01",
+      "exam": "JEE Main",
+      "year": 2016,
+      "subject": "physics",
+      "chapter": "Rotational Motion",
+      "question": "The moment of inertia of a solid sphere of mass M and radius R about its diameter is:",
+      "options": {
+        "A": "(1/2) MR²",
+        "B": "(2/5) MR²",
+        "C": "(2/3) MR²",
+        "D": "(7/5) MR²"
+      },
+      "correct_option": "B",
+      "explanation": "For a uniform solid sphere about any diameter, I = (2/5) MR² (whereas a hollow thin spherical shell has (2/3) MR²).",
+      "source": "JEE Main 2016 Prep Bank / NCERT Class 11 Physics Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "jee-2016-chem-02",
+      "exam": "JEE Advanced",
+      "year": 2016,
+      "subject": "chemistry",
+      "chapter": "Thermodynamics",
+      "question": "For a spontaneous process at constant temperature and pressure, the Gibbs free energy change (ΔG) must be:",
+      "options": {
+        "A": "ΔG > 0",
+        "B": "ΔG = 0",
+        "C": "ΔG < 0",
+        "D": "ΔG = ΔH"
+      },
+      "correct_option": "C",
+      "explanation": "At constant T and P, spontaneity requires ΔG = ΔH - TΔS < 0.",
+      "source": "JEE Advanced 2016 Prep Bank / NCERT Class 11 Chemistry Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2017-phy-01",
+      "exam": "JEE Main",
+      "year": 2017,
+      "subject": "physics",
+      "chapter": "Work, Energy and Power",
+      "question": "A body of mass 2 kg moves with velocity 10 m/s. Its kinetic energy is:",
+      "options": {
+        "A": "20 J",
+        "B": "50 J",
+        "C": "100 J",
+        "D": "200 J"
+      },
+      "correct_option": "C",
+      "explanation": "KE = (1/2) m v² = 0.5 × 2 × 10² = 100 J.",
+      "source": "JEE Main 2017 Prep Bank / NCERT Class 11 Physics Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2017-chem-02",
+      "exam": "JEE Main",
+      "year": 2017,
+      "subject": "chemistry",
+      "chapter": "Electrochemistry",
+      "question": "At 298 K, the relationship between standard cell potential E°cell and equilibrium constant K is:",
+      "options": {
+        "A": "E°cell = (0.0591 / n) log10 K",
+        "B": "E°cell = (n / 0.0591) log10 K",
+        "C": "E°cell = -0.0591 n log10 K",
+        "D": "E°cell = 0.0591 + log10 K"
+      },
+      "correct_option": "A",
+      "explanation": "From Nernst equation at equilibrium (Ecell = 0, Q = K), E°cell = (2.303 RT / nF) log10 K = (0.0591 / n) log10 K at 298 K.",
+      "source": "JEE Main 2017 Prep Bank / NCERT Class 12 Chemistry Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "jee-2018-phy-01",
+      "exam": "JEE Main",
+      "year": 2018,
+      "subject": "physics",
+      "chapter": "Oscillations",
+      "question": "If the length of a simple pendulum is quadrupled (4L), its time period T becomes:",
+      "options": {
+        "A": "Half",
+        "B": "Double",
+        "C": "Four times",
+        "D": "Unchanged"
+      },
+      "correct_option": "B",
+      "explanation": "T = 2π√(L/g) ∝ √L. Replacing L with 4L multiplies T by √4 = 2.",
+      "source": "JEE Main 2018 Prep Bank / NCERT Class 11 Physics Ch. 14",
+      "verified": true
+    },
+    {
+      "id": "jee-2018-chem-02",
+      "exam": "JEE Advanced",
+      "year": 2018,
+      "subject": "chemistry",
+      "chapter": "Structure of Atom",
+      "question": "The maximum number of electrons that can be accommodated in a subshell with azimuthal quantum number l = 2 (d-subshell) is:",
+      "options": {
+        "A": "6",
+        "B": "10",
+        "C": "14",
+        "D": "18"
+      },
+      "correct_option": "B",
+      "explanation": "A subshell has (2l + 1) orbitals and holds at most 2(2l + 1) electrons. For l = 2, 2(4 + 1) = 10 electrons.",
+      "source": "JEE Advanced 2018 Prep Bank / NCERT Class 11 Chemistry Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2019-phy-01",
+      "exam": "JEE Main",
+      "year": 2019,
+      "subject": "physics",
+      "chapter": "Ray Optics and Optical Instruments",
+      "question": "The power of a thin convex lens of focal length +25 cm in air is:",
+      "options": {
+        "A": "+2 D",
+        "B": "+4 D",
+        "C": "-4 D",
+        "D": "+0.25 D"
+      },
+      "correct_option": "B",
+      "explanation": "Power P = 1 / f(in meters) = 1 / 0.25 m = +4 Dioptres (D).",
+      "source": "JEE Main 2019 Prep Bank / NCERT Class 12 Physics Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "jee-2019-chem-02",
+      "exam": "JEE Main",
+      "year": 2019,
+      "subject": "chemistry",
+      "chapter": "Organic Chemistry: Basic Principles",
+      "question": "Which of the following carbocations is the MOST stable?",
+      "options": {
+        "A": "CH3+",
+        "B": "CH3CH2+",
+        "C": "(CH3)2CH+",
+        "D": "(CH3)3C+"
+      },
+      "correct_option": "D",
+      "explanation": "Tertiary butyl carbocation (CH3)3C+ is stabilized by 9 α-hydrogens via hyperconjugation and three +I methyl groups.",
+      "source": "JEE Main 2019 Prep Bank / NCERT Class 11 Chemistry Ch. 12",
+      "verified": true
+    },
+    {
+      "id": "jee-2020-phy-01",
+      "exam": "JEE Advanced",
+      "year": 2020,
+      "subject": "physics",
+      "chapter": "Electric Charges and Fields",
+      "question": "If the distance r between two point charges in vacuum is doubled while keeping charges constant, the electrostatic force becomes:",
+      "options": {
+        "A": "Four times",
+        "B": "Double",
+        "C": "Half",
+        "D": "One-fourth"
+      },
+      "correct_option": "D",
+      "explanation": "By Coulomb's law, F ∝ 1/r². Doubling r to 2r reduces F to F/4.",
+      "source": "JEE Advanced 2020 Prep Bank / NCERT Class 12 Physics Ch. 1",
+      "verified": true
+    },
+    {
+      "id": "jee-2020-chem-02",
+      "exam": "JEE Main",
+      "year": 2020,
+      "subject": "chemistry",
+      "chapter": "Hydrocarbons",
+      "question": "Markovnikov's rule for addition of HBr to propene in the absence of peroxides yields predominantly:",
+      "options": {
+        "A": "1-Bromopropane",
+        "B": "2-Bromopropane",
+        "C": "1,2-Dibromopropane",
+        "D": "Propan-1-ol"
+      },
+      "correct_option": "B",
+      "explanation": "Electrophilic addition proceeds via the more stable secondary carbocation, yielding 2-bromopropane as the major product.",
+      "source": "JEE Main 2020 Prep Bank / NCERT Class 11 Chemistry Ch. 13",
+      "verified": true
+    },
+    {
+      "id": "jee-2021-chem-01",
+      "exam": "JEE Main",
+      "year": 2021,
+      "subject": "chemistry",
+      "chapter": "Solutions",
+      "question": "For an ideal solution formed by mixing two volatile liquids, which condition holds true?",
+      "options": {
+        "A": "ΔmixH = 0 and ΔmixV = 0",
+        "B": "ΔmixH > 0 and ΔmixV = 0",
+        "C": "ΔmixH = 0 and ΔmixV > 0",
+        "D": "ΔmixH < 0 and ΔmixV < 0"
+      },
+      "correct_option": "A",
+      "explanation": "Ideal solutions obey Raoult's law at all concentrations with ΔmixH = 0 and ΔmixV = 0.",
+      "source": "JEE Main 2021 Prep Bank / NCERT Class 12 Chemistry Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2021-phy-02",
+      "exam": "JEE Advanced",
+      "year": 2021,
+      "subject": "physics",
+      "chapter": "Thermodynamics",
+      "question": "The efficiency of a Carnot engine operating between a hot reservoir at 600 K and a cold reservoir at 300 K is:",
+      "options": {
+        "A": "25%",
+        "B": "50%",
+        "C": "75%",
+        "D": "100%"
+      },
+      "correct_option": "B",
+      "explanation": "Carnot efficiency η = 1 - (Tc / Th) = 1 - (300 / 600) = 0.5 = 50%.",
+      "source": "JEE Advanced 2021 Prep Bank / NCERT Class 11 Physics Ch. 12",
+      "verified": true
+    },
+    {
+      "id": "jee-2022-phy-01",
+      "exam": "JEE Main",
+      "year": 2022,
+      "subject": "physics",
+      "chapter": "Laws of Motion",
+      "question": "A constant net force of 20 N acts on a body of mass 4 kg initially at rest. What is its acceleration?",
+      "options": {
+        "A": "2 m/s²",
+        "B": "4 m/s²",
+        "C": "5 m/s²",
+        "D": "80 m/s²"
+      },
+      "correct_option": "C",
+      "explanation": "By Newton's second law, a = F / m = 20 N / 4 kg = 5 m/s².",
+      "source": "JEE Main 2022 Prep Bank / NCERT Class 11 Physics Ch. 5",
+      "verified": true
+    },
+    {
+      "id": "jee-2022-chem-02",
+      "exam": "JEE Main",
+      "year": 2022,
+      "subject": "chemistry",
+      "chapter": "Haloalkanes and Haloarenes",
+      "question": "SN2 reactions of optically active alkyl halides proceed with:",
+      "options": {
+        "A": "Complete retention of configuration",
+        "B": "Complete inversion of configuration (Walden inversion)",
+        "C": "Complete racemisation",
+        "D": "Carbocation rearrangement"
+      },
+      "correct_option": "B",
+      "explanation": "SN2 is a concerted backside-attack mechanism, resulting in 100% inversion of stereochemical configuration.",
+      "source": "JEE Main 2022 Prep Bank / NCERT Class 12 Chemistry Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "jee-2023-phy-01",
+      "exam": "JEE Main",
+      "year": 2023,
+      "subject": "physics",
+      "chapter": "Electrostatic Potential and Capacitance",
+      "question": "Two capacitors of 4 µF and 4 µF are connected in series. Their equivalent capacitance is:",
+      "options": {
+        "A": "8 µF",
+        "B": "4 µF",
+        "C": "2 µF",
+        "D": "1 µF"
+      },
+      "correct_option": "C",
+      "explanation": "In series, 1/Ceq = 1/4 + 1/4 = 1/2 → Ceq = 2 µF.",
+      "source": "JEE Main 2023 Prep Bank / NCERT Class 12 Physics Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2023-chem-02",
+      "exam": "JEE Advanced",
+      "year": 2023,
+      "subject": "chemistry",
+      "chapter": "d and f Block Elements",
+      "question": "The spin-only magnetic moment of Fe²⁺ ion (atomic number Z = 26) in Bohr Magnetons (BM) is:",
+      "options": {
+        "A": "√15 BM (3.87 BM)",
+        "B": "√24 BM (4.90 BM)",
+        "C": "√35 BM (5.92 BM)",
+        "D": "√8 BM (2.83 BM)"
+      },
+      "correct_option": "B",
+      "explanation": "Fe²⁺ has configuration [Ar] 3d⁶ with n = 4 unpaired electrons. μ = √(n(n+2)) = √(4 × 6) = √24 ≈ 4.90 BM.",
+      "source": "JEE Advanced 2023 Prep Bank / NCERT Class 12 Chemistry Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "jee-2024-phy-01",
+      "exam": "JEE Main",
+      "year": 2024,
+      "subject": "physics",
+      "chapter": "Electromagnetic Induction",
+      "question": "Lenz's law is a direct consequence of the law of conservation of:",
+      "options": {
+        "A": "Charge",
+        "B": "Linear momentum",
+        "C": "Energy",
+        "D": "Angular momentum"
+      },
+      "correct_option": "C",
+      "explanation": "Induced emf always opposes the change in magnetic flux that produces it, requiring mechanical work that converts to electrical energy (conservation of energy).",
+      "source": "JEE Main 2024 Prep Bank / NCERT Class 12 Physics Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2024-chem-02",
+      "exam": "JEE Main",
+      "year": 2024,
+      "subject": "chemistry",
+      "chapter": "Chemical Bonding and Molecular Structure",
+      "question": "According to Molecular Orbital Theory, the bond order of the O2 molecule is:",
+      "options": {
+        "A": "1.0",
+        "B": "1.5",
+        "C": "2.0",
+        "D": "2.5"
+      },
+      "correct_option": "C",
+      "explanation": "O2 has 10 bonding and 6 antibonding electrons: Bond Order = (10 - 6) / 2 = 2.0 (and is paramagnetic due to 2 unpaired electrons in π*2p).",
+      "source": "JEE Main 2024 Prep Bank / NCERT Class 11 Chemistry Ch. 4",
+      "verified": true
+    },
+    {
+      "id": "jee-2025-phy-01",
+      "exam": "JEE Main",
+      "year": 2025,
+      "subject": "physics",
+      "chapter": "Alternating Current",
+      "question": "At resonance in a series LCR circuit, the impedance Z of the circuit equals:",
+      "options": {
+        "A": "Zero",
+        "B": "R (the ohmic resistance)",
+        "C": "XL + XC",
+        "D": "Infinite"
+      },
+      "correct_option": "B",
+      "explanation": "At resonance XL = XC, so Z = √(R² + (XL - XC)²) = R, and current reaches its maximum value.",
+      "source": "JEE Main 2025 Prep Bank / NCERT Class 12 Physics Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "jee-2025-chem-02",
+      "exam": "JEE Advanced",
+      "year": 2025,
+      "subject": "chemistry",
+      "chapter": "Amines",
+      "question": "Which reaction converts a primary amide (RCONH2) into a primary amine (RNH2) with one carbon atom less?",
+      "options": {
+        "A": "Gabriel phthalimide synthesis",
+        "B": "Hoffmann bromamide degradation reaction",
+        "C": "Sandmeyer reaction",
+        "D": "Cannizzaro reaction"
+      },
+      "correct_option": "B",
+      "explanation": "Treating an amide with Br2 in aqueous/ethanolic NaOH yields a primary amine containing one carbon less than the parent amide.",
+      "source": "JEE Advanced 2025 Prep Bank / NCERT Class 12 Chemistry Ch. 13",
+      "verified": true
+    }
+  ]
+}

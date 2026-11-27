@@ -1,15 +1,17 @@
-"""10-Year (2016–2025) NEET & JEE PYQ browser, zero-repeat engine, auto-advancing Polls & 4-min cleanup."""
+"""10-Year (2016–2025) NEET & JEE PYQ browser, zero-repeat engine, one-answer-per-user guard, auto-polls & diagrams."""
 
 from __future__ import annotations
 
 import asyncio
 import html as html_lib
 import logging
+from collections import OrderedDict
 
 from aiogram import Bot, F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, Message
 
+from ai.formatter import clean_latex_to_unicode
 from config import Settings
 from database.progress import ProgressRepository
 from database.users import UserRepository
@@ -28,17 +30,32 @@ from services.quiz import question_time_limit_seconds
 logger = logging.getLogger(__name__)
 router = Router(name="pyq")
 
-# Active auto-advancing poll marathon tasks per chat_id
 _ACTIVE_POLL_LOOPS: dict[int, asyncio.Task] = {}
+# Prevent the same user from answering the same PYQ message multiple times: (chat_id, msg_id) -> {user_ids}
+_ANSWERED_PYQ_MESSAGES: OrderedDict[tuple[int, int], set[int]] = OrderedDict()
+_MAX_TRACKED_MSGS = 500
+
+
+def _mark_user_answered(chat_id: int, message_id: int, user_id: int) -> bool:
+    """Return True if this is the user's first answer on this question message, False if duplicate."""
+    key = (chat_id, message_id)
+    answered = _ANSWERED_PYQ_MESSAGES.get(key)
+    if answered is None:
+        answered = set()
+        _ANSWERED_PYQ_MESSAGES[key] = answered
+        if len(_ANSWERED_PYQ_MESSAGES) > _MAX_TRACKED_MSGS:
+            _ANSWERED_PYQ_MESSAGES.popitem(last=False)
+    if user_id in answered:
+        return False
+    answered.add(user_id)
+    return True
 
 
 def _scope_id(chat_id: int, chat_type: str, user_id: int) -> int:
-    """Use user_id in DM and chat_id in groups so questions never repeat in either context."""
     return user_id if chat_type == "private" else chat_id
 
 
 def _resolve_user_exam(users: UserRepository, user_id: int, explicit_exam: str | None = None) -> str | None:
-    """Honor explicit exam command (/neet, /jee); otherwise filter strictly by student's saved exam."""
     if explicit_exam and explicit_exam.lower() not in {"all", "any", "mixed"}:
         return explicit_exam
     user = users.get_user(user_id)
@@ -59,45 +76,70 @@ def _pick_unseen_pyq(
     subject: str | None = None,
     year: int | None = None,
 ) -> PYQItem | None:
-    """Select a guaranteed-unseen PYQ for `scope_id`, auto-resetting only when 100% completed."""
     seen = progress.get_seen_pyq_ids(scope_id)
     item, wrapped = pyq_service.random_question(exam=exam, subject=subject, year=year, exclude_ids=seen)
     if item is None:
         return None
     if wrapped:
-        # Clear seen IDs for this pool and start a fresh cycle with this item marked seen
         pool_ids = {q.pyq_id for q in pyq_service.query(exam=exam, subject=subject, year=year, limit=10000)}
         progress.reset_seen_pyq_ids(scope_id, subset_to_clear=pool_ids)
     progress.mark_pyq_seen(scope_id, item.pyq_id)
     return item
 
 
+def _stop_poll_keyboard(settings: Settings | None = None) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [styled_button("End Auto-Poll", callback_data="pyq:stop_poll", style="danger", emoji_key="cancel", settings=settings)]
+        ]
+    )
+
+
 def format_pyq_html(q: PYQItem, settings: Settings | None = None) -> str:
-    """Render a PYQ card cleanly in HTML with its 45s/60s target timer."""
     icon = tg_emoji("pyq", settings)
     secs = question_time_limit_seconds(q.subject)
     options_text = "\n".join(
-        f"<b>{html_lib.escape(k)}.</b> {html_lib.escape(v)}" for k, v in sorted(q.options.items())
+        f"<b>{html_lib.escape(k)}.</b> {html_lib.escape(clean_latex_to_unicode(v))}"
+        for k, v in sorted(q.options.items())
     )
     return (
         f"{icon} <b>{html_lib.escape(q.exam)} {q.year}</b> | "
-        f"{html_lib.escape(q.subject.title())} — <i>{html_lib.escape(q.chapter)}</i>\n"
+        f"{html_lib.escape(q.subject.title())} — <i>{html_lib.escape(clean_latex_to_unicode(q.chapter))}</i>\n"
         f"⏱️ Target Time: <b>{secs}s</b>\n\n"
-        f"{html_lib.escape(q.question)}\n\n"
+        f"{html_lib.escape(clean_latex_to_unicode(q.question))}\n\n"
         f"{options_text}\n\n"
-        "Tap your answer below (next unseen question loads automatically!):"
+        "Tap your answer once below (next unseen question loads automatically!):"
     )
 
 
-async def send_pyq_quiz_poll(bot: Bot, chat_id: int, q: PYQItem, index: int = 1, total: int = 1) -> None:
-    """Send a native Telegram Quiz Poll with 60s Physics / 45s Bio & Chem timer & 4-min auto-delete."""
+async def send_pyq_quiz_poll(
+    bot: Bot,
+    chat_id: int,
+    q: PYQItem,
+    *,
+    index: int = 1,
+    total: int = 1,
+    settings: Settings | None = None,
+) -> None:
+    if q.image_url:
+        try:
+            diag = await bot.send_photo(
+                chat_id=chat_id,
+                photo=q.image_url,
+                caption=f"🖼️ <b>Diagram for Q{index}/{total}</b> ({html_lib.escape(q.exam)} {q.year})",
+                parse_mode="HTML",
+            )
+            schedule_auto_delete(bot, chat_id, diag.message_id, AUTO_DELETE_SECONDS)
+        except Exception as exc:
+            logger.debug("Could not send PYQ diagram %s: %s", q.image_url, exc)
+
     sorted_keys = sorted(q.options.keys())
-    options = [f"{k}. {q.options[k]}"[:100] for k in sorted_keys]
+    options = [f"{k}. {clean_latex_to_unicode(q.options[k])}"[:100] for k in sorted_keys]
     correct_idx = sorted_keys.index(q.correct_option) if q.correct_option in sorted_keys else 0
     open_period = question_time_limit_seconds(q.subject)
     prefix = f"[{index}/{total} • {q.exam} {q.year} • {open_period}s] " if total > 1 else f"[{q.exam} {q.year} • {open_period}s] "
-    poll_question = f"{prefix}{q.question}"[:300]
-    explanation = f"{q.explanation} ({q.source})"[:200]
+    poll_question = f"{prefix}{clean_latex_to_unicode(q.question)}"[:300]
+    explanation = clean_latex_to_unicode(f"{q.explanation} ({q.source})")[:200]
     sent = await bot.send_poll(
         chat_id=chat_id,
         question=poll_question,
@@ -107,6 +149,7 @@ async def send_pyq_quiz_poll(bot: Bot, chat_id: int, q: PYQItem, index: int = 1,
         explanation=explanation,
         is_anonymous=False,
         open_period=open_period,
+        reply_markup=_stop_poll_keyboard(settings),
     )
     schedule_auto_delete(bot, chat_id, sent.message_id, AUTO_DELETE_SECONDS)
 
@@ -117,11 +160,10 @@ async def _run_auto_poll_series(
     items: list[PYQItem],
     settings: Settings,
 ) -> None:
-    """Automatically send the next Quiz Poll after each 45s/60s poll timer closes."""
     total = len(items)
     try:
         for idx, item in enumerate(items, start=1):
-            await send_pyq_quiz_poll(bot, chat_id, item, index=idx, total=total)
+            await send_pyq_quiz_poll(bot, chat_id, item, index=idx, total=total, settings=settings)
             if idx < total:
                 wait_secs = question_time_limit_seconds(item.subject) + 3
                 await asyncio.sleep(wait_secs)
@@ -151,7 +193,6 @@ async def start_auto_poll_series(
     subject: str | None = None,
     count: int = 5,
 ) -> bool:
-    """Start a 5-question auto-advancing, zero-repeat Quiz Poll marathon in DM or Group Chat."""
     existing = _ACTIVE_POLL_LOOPS.pop(chat_id, None)
     if existing and not existing.done():
         existing.cancel()
@@ -162,20 +203,15 @@ async def start_auto_poll_series(
         return False
     progress.mark_pyq_seen(scope_id, [q.pyq_id for q in items])
 
-    stop_kb = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [styled_button("Stop Auto-Poll", callback_data="pyq:stop_poll", style="danger", emoji_key="cancel", settings=settings)]
-        ]
-    )
     exam_tag = exam or "NEET/JEE"
     intro = await bot.send_message(
         chat_id=chat_id,
         text=(
             f"⚡ <b>Starting {len(items)}-Question Auto-Poll ({html_lib.escape(exam_tag)})</b>\n"
             "⏱️ <b>45s</b> for Bio/Chem • <b>60s</b> for Physics • <b>Zero Repeats</b>\n"
-            "Next poll arrives automatically when time ends! Old polls auto-delete after 4 min."
+            "Tap <b>End Auto-Poll</b> on any poll (or send <code>/stoppoll</code>) to stop anytime."
         ),
-        reply_markup=stop_kb,
+        reply_markup=_stop_poll_keyboard(settings),
         parse_mode="HTML",
     )
     schedule_auto_delete(bot, chat_id, intro.message_id, AUTO_DELETE_SECONDS)
@@ -194,7 +230,6 @@ async def _send_random_prep(
     exam: str | None = None,
     subject: str | None = None,
 ) -> None:
-    """Send a random unseen, exam-filtered PYQ with 4-minute auto-delete."""
     user_id = message.from_user.id if message.from_user else 0
     scope = _scope_id(message.chat.id, message.chat.type, user_id)
     resolved_exam = _resolve_user_exam(users, user_id, explicit_exam=exam)
@@ -205,6 +240,12 @@ async def _send_random_prep(
             parse_mode="HTML",
         )
         return
+    if item.image_url:
+        try:
+            diag = await bot.send_photo(chat_id=message.chat.id, photo=item.image_url)
+            schedule_auto_delete(bot, diag.chat.id, diag.message_id, AUTO_DELETE_SECONDS)
+        except Exception:
+            pass
     sent = await message.answer(
         format_pyq_html(item, settings),
         reply_markup=pyq_answer_keyboard(item.pyq_id, resolved_exam or item.exam, subject or "mixed", settings),
@@ -223,7 +264,6 @@ async def cmd_random_prep(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Send an unseen random prep question matching the student's NEET/JEE selection."""
     await _send_random_prep(message, bot, pyq_service, users, progress, settings)
 
 
@@ -236,7 +276,6 @@ async def cmd_random_neet(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Send an unseen random NEET UG question (DM & Group Chat)."""
     await _send_random_prep(message, bot, pyq_service, users, progress, settings, exam="NEET UG")
 
 
@@ -249,7 +288,6 @@ async def cmd_random_jee(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Send an unseen random JEE Main/Advanced question (DM & Group Chat)."""
     await _send_random_prep(message, bot, pyq_service, users, progress, settings, exam="JEE")
 
 
@@ -262,7 +300,6 @@ async def cmd_group_quiz_poll(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Start an auto-advancing 5-question Telegram Quiz Poll session (45s Bio/Chem, 60s Physics)."""
     arg = (message.text or "").split(maxsplit=1)
     explicit_exam = None
     if len(arg) > 1:
@@ -281,20 +318,29 @@ async def cmd_group_quiz_poll(
         await message.answer("No PYQs available to create a poll.")
 
 
+@router.message(Command("stoppoll"))
+@router.message(Command("stop"))
+async def cmd_stop_poll(message: Message) -> None:
+    task = _ACTIVE_POLL_LOOPS.pop(message.chat.id, None)
+    if task and not task.done():
+        task.cancel()
+        await message.answer("🛑 Auto-Poll session stopped.")
+    else:
+        await message.answer("No active Auto-Poll is running in this chat.")
+
+
 @router.callback_query(F.data == "pyq:stop_poll")
 async def cb_stop_poll(callback: CallbackQuery) -> None:
-    """Stop the active auto-advancing poll session in this chat."""
     if callback.message:
         task = _ACTIVE_POLL_LOOPS.pop(callback.message.chat.id, None)
         if task and not task.done():
             task.cancel()
-        await callback.message.answer("🛑 Auto-Poll session stopped.")
-    await callback.answer("Stopped")
+        await callback.message.answer("🛑 Auto-Poll session ended.")
+    await callback.answer("Auto-Poll stopped")
 
 
 @router.callback_query(F.data == "menu:pyq")
 async def cb_pyq_menu(callback: CallbackQuery, settings: Settings) -> None:
-    """Show 10-Year PYQ exam choices."""
     icon = tg_emoji("pyq", settings)
     if callback.message:
         await callback.message.answer(
@@ -307,7 +353,6 @@ async def cb_pyq_menu(callback: CallbackQuery, settings: Settings) -> None:
 
 @router.callback_query(F.data.startswith("pyq:exam:"))
 async def cb_pyq_exam(callback: CallbackQuery, settings: Settings) -> None:
-    """Show subject & year sub-menu for the selected exam."""
     exam = callback.data.split("pyq:exam:", 1)[1]
     if callback.message:
         await callback.message.answer(
@@ -320,7 +365,6 @@ async def cb_pyq_exam(callback: CallbackQuery, settings: Settings) -> None:
 
 @router.callback_query(F.data.startswith("pyq:years:"))
 async def cb_pyq_years(callback: CallbackQuery, pyq_service: PYQService, settings: Settings) -> None:
-    """Show 10-year (2016–2025) year buttons for an exam."""
     exam = callback.data.split("pyq:years:", 1)[1]
     years = pyq_service.list_years(exam=exam)
     if not years:
@@ -343,7 +387,6 @@ async def cb_pyq_by_year(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Serve an unseen random PYQ from the selected exam and year with 4-min auto-delete."""
     _, _, exam, year_str = callback.data.split(":", 3)
     if not callback.message:
         await callback.answer()
@@ -371,7 +414,6 @@ async def cb_pyq_random(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Serve an unseen random prep question filtered to the student's NEET/JEE exam."""
     subject = callback.data.split("pyq:random:", 1)[1]
     if not callback.message:
         await callback.answer()
@@ -406,7 +448,6 @@ async def cb_pyq_poll(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Launch an auto-advancing, zero-repeat 5-question Quiz Poll session."""
     subject = callback.data.split("pyq:poll:", 1)[1]
     if not callback.message:
         await callback.answer()
@@ -434,7 +475,6 @@ async def cb_pyq_question(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Serve an unseen verified PYQ with colored interactive A/B/C/D buttons & 4-min auto-delete."""
     _, _, exam, subject = callback.data.split(":", 3)
     if not callback.message:
         await callback.answer()
@@ -474,7 +514,15 @@ async def cb_pyq_answer(
     progress: ProgressRepository,
     settings: Settings,
 ) -> None:
-    """Evaluate student's PYQ answer, show explanation, and auto-send the next UNSEEN question!"""
+    if not callback.message:
+        await callback.answer()
+        return
+
+    # Strictly block the same user from answering the same question multiple times
+    if not _mark_user_answered(callback.message.chat.id, callback.message.message_id, callback.from_user.id):
+        await callback.answer("⚠️ You already answered this question!", show_alert=True)
+        return
+
     _, _, pyq_id, chosen = callback.data.split(":", 3)
     item = pyq_service.get_by_id(pyq_id)
     if not item:
@@ -501,25 +549,24 @@ async def cb_pyq_answer(
     verdict = f"✅ <b>Correct, {who}!</b>" if is_correct else f"❌ <b>Not quite, {who}.</b> You chose <b>{html_lib.escape(chosen)}</b>."
     reply = (
         f"{verdict}\n"
-        f"Correct Answer: <b>{html_lib.escape(item.correct_option)}. {html_lib.escape(item.options[item.correct_option])}</b>\n\n"
-        f"📖 <b>Explanation:</b>\n{html_lib.escape(item.explanation)}\n\n"
+        f"Correct Answer: <b>{html_lib.escape(item.correct_option)}. {html_lib.escape(clean_latex_to_unicode(item.options[item.correct_option]))}</b>\n\n"
+        f"📖 <b>Explanation:</b>\n{html_lib.escape(clean_latex_to_unicode(item.explanation))}\n\n"
         f"🔗 Source: {html_lib.escape(item.source)}\n"
         "<i>Loading next unseen question in 3 seconds…</i>"
     )
     await callback.answer("Correct!" if is_correct else f"Correct answer: {item.correct_option}")
 
-    if callback.message:
-        exp_msg = await callback.message.answer(reply, parse_mode="HTML")
-        schedule_auto_delete(bot, exp_msg.chat.id, exp_msg.message_id, AUTO_DELETE_SECONDS)
+    exp_msg = await callback.message.answer(reply, parse_mode="HTML")
+    schedule_auto_delete(bot, exp_msg.chat.id, exp_msg.message_id, AUTO_DELETE_SECONDS)
 
-        await asyncio.sleep(3)
-        scope = _scope_id(callback.message.chat.id, callback.message.chat.type, callback.from_user.id)
-        resolved_exam = _resolve_user_exam(users, callback.from_user.id)
-        next_item = _pick_unseen_pyq(pyq_service, progress, scope, exam=resolved_exam)
-        if next_item:
-            next_msg = await callback.message.answer(
-                format_pyq_html(next_item, settings),
-                reply_markup=pyq_answer_keyboard(next_item.pyq_id, resolved_exam or next_item.exam, "mixed", settings),
-                parse_mode="HTML",
-            )
-            schedule_auto_delete(bot, next_msg.chat.id, next_msg.message_id, AUTO_DELETE_SECONDS)
+    await asyncio.sleep(3)
+    scope = _scope_id(callback.message.chat.id, callback.message.chat.type, callback.from_user.id)
+    resolved_exam = _resolve_user_exam(users, callback.from_user.id)
+    next_item = _pick_unseen_pyq(pyq_service, progress, scope, exam=resolved_exam)
+    if next_item:
+        next_msg = await callback.message.answer(
+            format_pyq_html(next_item, settings),
+            reply_markup=pyq_answer_keyboard(next_item.pyq_id, resolved_exam or next_item.exam, "mixed", settings),
+            parse_mode="HTML",
+        )
+        schedule_auto_delete(bot, next_msg.chat.id, next_msg.message_id, AUTO_DELETE_SECONDS)

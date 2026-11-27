@@ -36,12 +36,12 @@ class TestTenYearPYQsAndPremiumUI(unittest.TestCase):
         expected_years = list(range(2016, 2026))
         self.assertEqual(self.pyq.list_years(exam="NEET UG"), expected_years)
         self.assertEqual(self.pyq.list_years(exam="JEE"), expected_years)
-        self.assertGreaterEqual(len(self.pyq.all_items), 40)
+        self.assertGreaterEqual(len(self.pyq.all_items), 100)
 
     def test_random_prep_works_for_neet_jee_and_any(self) -> None:
-        q_neet = self.pyq.random_question(exam="NEET UG")
-        q_jee = self.pyq.random_question(exam="JEE")
-        q_any = self.pyq.random_question()
+        q_neet, _ = self.pyq.random_question(exam="NEET UG")
+        q_jee, _ = self.pyq.random_question(exam="JEE")
+        q_any, _ = self.pyq.random_question()
         self.assertIsNotNone(q_neet)
         self.assertIsNotNone(q_jee)
         self.assertIsNotNone(q_any)
@@ -76,7 +76,7 @@ class TestTenYearPYQsAndPremiumUI(unittest.TestCase):
             self.assertTrue({"primary", "success"} & styles)
 
     def test_all_telegram_html_widgets_pass_bot_api_10_4_zlib_limit(self) -> None:
-        sample_item = self.pyq.random_question()
+        sample_item, _ = self.pyq.random_question()
         assert sample_item is not None
         widgets = [
             build_progress_widget_html(

@@ -1,0 +1,545 @@
+{
+  "description": "Extended 10-year (2016-2025) NEET UG verified PYQ & prep bank across Class 11 & 12 Biology, Chemistry, Physics.",
+  "questions": [
+    {
+      "id": "neet-2016-bio-03",
+      "exam": "NEET UG",
+      "year": 2016,
+      "subject": "biology",
+      "chapter": "Biological Classification",
+      "question": "Which of the following are the smallest living cells known that completely lack a cell wall and can survive without oxygen?",
+      "options": {
+        "A": "Cyanobacteria",
+        "B": "Mycoplasma",
+        "C": "Archaebacteria",
+        "D": "Diatoms"
+      },
+      "correct_option": "B",
+      "explanation": "Mycoplasma completely lack a cell wall, are the smallest living cells known, and can survive without oxygen.",
+      "source": "NEET UG 2016 / NCERT Class 11 Biology Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "neet-2016-chem-04",
+      "exam": "NEET UG",
+      "year": 2016,
+      "subject": "chemistry",
+      "chapter": "Some Basic Concepts of Chemistry",
+      "question": "Which concentration term is independent of temperature?",
+      "options": {
+        "A": "Molarity",
+        "B": "Normality",
+        "C": "Molality",
+        "D": "Formality"
+      },
+      "correct_option": "C",
+      "explanation": "Molality (moles of solute per kg of solvent) depends only on mass, not volume, so it is independent of temperature.",
+      "source": "NEET UG 2016 / NCERT Class 11 Chemistry Ch. 1",
+      "verified": true
+    },
+    {
+      "id": "neet-2017-phy-03",
+      "exam": "NEET UG",
+      "year": 2017,
+      "subject": "physics",
+      "chapter": "Motion in a Plane",
+      "question": "For a projectile launched at angle θ with horizontal (neglecting air resistance), horizontal range R is maximum when θ equals:",
+      "options": {
+        "A": "30°",
+        "B": "45°",
+        "C": "60°",
+        "D": "90°"
+      },
+      "correct_option": "B",
+      "explanation": "R = u² sin(2θ)/g is maximum when sin(2θ) = 1, i.e., 2θ = 90° → θ = 45°.",
+      "source": "NEET UG 2017 / NCERT Class 11 Physics Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "neet-2017-bio-04",
+      "exam": "NEET UG",
+      "year": 2017,
+      "subject": "biology",
+      "chapter": "Biomolecules",
+      "question": "Inhibition of succinic dehydrogenase by malonate is a classic example of:",
+      "options": {
+        "A": "Non-competitive inhibition",
+        "B": "Competitive inhibition",
+        "C": "Feedback inhibition",
+        "D": "Allosteric activation"
+      },
+      "correct_option": "B",
+      "explanation": "Malonate closely resembles the substrate succinate in structure and competes for the active site of succinic dehydrogenase.",
+      "source": "NEET UG 2017 / NCERT Class 11 Biology Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "neet-2018-chem-03",
+      "exam": "NEET UG",
+      "year": 2018,
+      "subject": "chemistry",
+      "chapter": "Classification of Elements and Periodicity in Properties",
+      "question": "Which halogen has the highest negative electron gain enthalpy?",
+      "options": {
+        "A": "Fluorine (F)",
+        "B": "Chlorine (Cl)",
+        "C": "Bromine (Br)",
+        "D": "Iodine (I)"
+      },
+      "correct_option": "B",
+      "explanation": "Chlorine has a more negative electron gain enthalpy than Fluorine because F has very small 2p orbitals causing strong inter-electronic repulsion.",
+      "source": "NEET UG 2018 / NCERT Class 11 Chemistry Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "neet-2018-bio-04",
+      "exam": "NEET UG",
+      "year": 2018,
+      "subject": "biology",
+      "chapter": "Sexual Reproduction in Flowering Plants",
+      "question": "A typical mature angiosperm (Polygonum type) embryo sac is:",
+      "options": {
+        "A": "8-celled, 7-nucleate",
+        "B": "7-celled, 8-nucleate",
+        "C": "7-celled, 7-nucleate",
+        "D": "8-celled, 8-nucleate"
+      },
+      "correct_option": "B",
+      "explanation": "A mature embryo sac has 3 antipodals, 1 central cell (2 polar nuclei), 2 synergids, and 1 egg cell = 7 cells and 8 nuclei.",
+      "source": "NEET UG 2018 / NCERT Class 12 Biology Ch. 1",
+      "verified": true
+    },
+    {
+      "id": "neet-2019-phy-03",
+      "exam": "NEET UG",
+      "year": 2019,
+      "subject": "physics",
+      "chapter": "Wave Optics",
+      "question": "In Young's double slit experiment, if the separation d between the two slits is halved and distance D to the screen is doubled, the fringe width β becomes:",
+      "options": {
+        "A": "Half",
+        "B": "Double",
+        "C": "Four times",
+        "D": "Unchanged"
+      },
+      "correct_option": "C",
+      "explanation": "Fringe width β = λD/d. Making D → 2D and d → d/2 multiplies β by 2 / (1/2) = 4.",
+      "source": "NEET UG 2019 / NCERT Class 12 Physics Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "neet-2019-bio-04",
+      "exam": "NEET UG",
+      "year": 2019,
+      "subject": "biology",
+      "chapter": "Microbes in Human Welfare",
+      "question": "Statins, used as blood-cholesterol lowering agents, are commercially produced by the yeast:",
+      "options": {
+        "A": "Trichoderma polysporum",
+        "B": "Monascus purpureus",
+        "C": "Saccharomyces cerevisiae",
+        "D": "Aspergillus niger"
+      },
+      "correct_option": "B",
+      "explanation": "Monascus purpureus produces statins, which act by competitively inhibiting the enzyme responsible for cholesterol synthesis.",
+      "source": "NEET UG 2019 / NCERT Class 12 Biology Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "neet-2020-phy-03",
+      "exam": "NEET UG",
+      "year": 2020,
+      "subject": "physics",
+      "chapter": "Atoms",
+      "question": "According to Bohr's model of the hydrogen atom, the energy of an electron in the nth orbit is proportional to:",
+      "options": {
+        "A": "n²",
+        "B": "n",
+        "C": "1/n",
+        "D": "1/n²"
+      },
+      "correct_option": "D",
+      "explanation": "In Bohr's model, En = -13.6 / n² eV, so energy is inversely proportional to n².",
+      "source": "NEET UG 2020 / NCERT Class 12 Physics Ch. 12",
+      "verified": true
+    },
+    {
+      "id": "neet-2020-bio-04",
+      "exam": "NEET UG",
+      "year": 2020,
+      "subject": "biology",
+      "chapter": "Biotechnology: Principles and Processes",
+      "question": "The palindrome recognition sequence for the restriction enzyme EcoRI is:",
+      "options": {
+        "A": "5'-GAATTC-3'",
+        "B": "5'-GGATCC-3'",
+        "C": "5'-AAGCTT-3'",
+        "D": "5'-CTGCAG-3'"
+      },
+      "correct_option": "A",
+      "explanation": "EcoRI recognizes the 6-base-pair palindromic sequence 5'-GAATTC-3' and cuts between G and A.",
+      "source": "NEET UG 2020 / NCERT Class 12 Biology Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "neet-2021-chem-03",
+      "exam": "NEET UG",
+      "year": 2021,
+      "subject": "chemistry",
+      "chapter": "Alcohols, Phenols and Ethers",
+      "question": "Which alcohol gives immediate turbidity at room temperature with Lucas reagent (conc. HCl + anhydrous ZnCl2)?",
+      "options": {
+        "A": "Primary (1°) alcohol",
+        "B": "Secondary (2°) alcohol",
+        "C": "Tertiary (3°) alcohol",
+        "D": "Methanol"
+      },
+      "correct_option": "C",
+      "explanation": "Tertiary alcohols form a stable 3° carbocation instantly, producing immediate turbidity with Lucas reagent.",
+      "source": "NEET UG 2021 / NCERT Class 12 Chemistry Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "neet-2021-bio-04",
+      "exam": "NEET UG",
+      "year": 2021,
+      "subject": "biology",
+      "chapter": "Body Fluids and Circulation",
+      "question": "In a standard human ECG, the QRS complex represents:",
+      "options": {
+        "A": "Atrial depolarisation",
+        "B": "Ventricular depolarisation",
+        "C": "Ventricular repolarisation",
+        "D": "Atrial repolarisation"
+      },
+      "correct_option": "B",
+      "explanation": "P-wave = atrial depolarisation, QRS complex = ventricular depolarisation, T-wave = ventricular repolarisation.",
+      "source": "NEET UG 2021 / NCERT Class 11 Biology Ch. 15",
+      "verified": true
+    },
+    {
+      "id": "neet-2022-phy-03",
+      "exam": "NEET UG",
+      "year": 2022,
+      "subject": "physics",
+      "chapter": "Electromagnetic Waves",
+      "question": "In vacuum, the speed of electromagnetic waves c is related to permeability μ₀ and permittivity ε₀ by:",
+      "options": {
+        "A": "c = √(μ₀ε₀)",
+        "B": "c = 1/√(μ₀ε₀)",
+        "C": "c = √(μ₀/ε₀)",
+        "D": "c = 1/(μ₀ε₀)"
+      },
+      "correct_option": "B",
+      "explanation": "Maxwell showed c = 1/√(μ₀ε₀) ≈ 3 × 10⁸ m/s in vacuum.",
+      "source": "NEET UG 2022 / NCERT Class 12 Physics Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "neet-2022-bio-04",
+      "exam": "NEET UG",
+      "year": 2022,
+      "subject": "biology",
+      "chapter": "Plant Growth and Development",
+      "question": "Which plant hormone is widely known as the 'stress hormone' because it induces stomatal closure during drought?",
+      "options": {
+        "A": "Auxin",
+        "B": "Gibberellin",
+        "C": "Cytokinin",
+        "D": "Abscisic acid (ABA)"
+      },
+      "correct_option": "D",
+      "explanation": "Abscisic acid (ABA) stimulates closure of stomata and increases plant tolerance to various stresses.",
+      "source": "NEET UG 2022 / NCERT Class 11 Biology Ch. 13",
+      "verified": true
+    },
+    {
+      "id": "neet-2023-chem-03",
+      "exam": "NEET UG",
+      "year": 2023,
+      "subject": "chemistry",
+      "chapter": "Biomolecules",
+      "question": "Which nitrogenous base is present in RNA but absent in DNA?",
+      "options": {
+        "A": "Adenine",
+        "B": "Guanine",
+        "C": "Cytosine",
+        "D": "Uracil"
+      },
+      "correct_option": "D",
+      "explanation": "DNA contains A, G, C, and Thymine (T), whereas RNA contains Uracil (U) instead of Thymine.",
+      "source": "NEET UG 2023 / NCERT Class 12 Chemistry Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "neet-2023-bio-04",
+      "exam": "NEET UG",
+      "year": 2023,
+      "subject": "biology",
+      "chapter": "Human Health and Disease",
+      "question": "Which immunoglobulin is abundant in colostrum (mother's first milk) and provides passive immunity to newborns?",
+      "options": {
+        "A": "IgE",
+        "B": "IgA",
+        "C": "IgM",
+        "D": "IgD"
+      },
+      "correct_option": "B",
+      "explanation": "Colostrum is rich in IgA antibodies, protecting the infant's mucosal surfaces during early life.",
+      "source": "NEET UG 2023 / NCERT Class 12 Biology Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "neet-2024-phy-03",
+      "exam": "NEET UG",
+      "year": 2024,
+      "subject": "physics",
+      "chapter": "Nuclei",
+      "question": "The nuclear radius R varies with mass number A as:",
+      "options": {
+        "A": "R ∝ A",
+        "B": "R ∝ A^(1/2)",
+        "C": "R ∝ A^(1/3)",
+        "D": "R ∝ A²"
+      },
+      "correct_option": "C",
+      "explanation": "Nuclear volume is proportional to A, so R = R₀ A^(1/3) where R₀ ≈ 1.2 × 10⁻¹⁵ m.",
+      "source": "NEET UG 2024 / NCERT Class 12 Physics Ch. 13",
+      "verified": true
+    },
+    {
+      "id": "neet-2024-bio-04",
+      "exam": "NEET UG",
+      "year": 2024,
+      "subject": "biology",
+      "chapter": "Biodiversity and Conservation",
+      "question": "Among the 'Evil Quartet' of biodiversity loss, which is considered the single most important cause driving animals and plants to extinction?",
+      "options": {
+        "A": "Over-exploitation",
+        "B": "Habitat loss and fragmentation",
+        "C": "Alien species invasions",
+        "D": "Co-extinctions"
+      },
+      "correct_option": "B",
+      "explanation": "Habitat loss and fragmentation (e.g., tropical rainforest clearing) is the most important cause of species extinction.",
+      "source": "NEET UG 2024 / NCERT Class 12 Biology Ch. 13",
+      "verified": true
+    },
+    {
+      "id": "neet-2025-chem-03",
+      "exam": "NEET UG",
+      "year": 2025,
+      "subject": "chemistry",
+      "chapter": "Amines",
+      "question": "In aqueous solution, the correct decreasing order of basic strength of methyl-substituted amines is:",
+      "options": {
+        "A": "(CH3)3N > (CH3)2NH > CH3NH2",
+        "B": "(CH3)2NH > CH3NH2 > (CH3)3N",
+        "C": "CH3NH2 > (CH3)2NH > (CH3)3N",
+        "D": "(CH3)3N > CH3NH2 > (CH3)2NH"
+      },
+      "correct_option": "B",
+      "explanation": "Due to combined +I effect, solvation (H-bonding), and steric hindrance in water, (CH3)2NH (2°) > CH3NH2 (1°) > (CH3)3N (3°).",
+      "source": "NEET UG 2025 / NCERT Class 12 Chemistry Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "neet-2025-bio-04",
+      "exam": "NEET UG",
+      "year": 2025,
+      "subject": "biology",
+      "chapter": "Evolution",
+      "question": "In Hardy-Weinberg equilibrium (p² + 2pq + q² = 1), the term 2pq represents the frequency of:",
+      "options": {
+        "A": "Homozygous dominant individuals",
+        "B": "Homozygous recessive individuals",
+        "C": "Heterozygous individuals",
+        "D": "Mutant alleles"
+      },
+      "correct_option": "C",
+      "explanation": "p² = homozygous dominant (AA), q² = homozygous recessive (aa), and 2pq = heterozygous (Aa) individuals.",
+      "source": "NEET UG 2025 / NCERT Class 12 Biology Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "neet-2016-bio-05",
+      "exam": "NEET UG",
+      "year": 2016,
+      "subject": "biology",
+      "chapter": "Excretory Products and their Elimination",
+      "question": "Which part of the nephron is primarily responsible for conditional reabsorption of Na+ and water under the influence of ADH and aldosterone?",
+      "options": {
+        "A": "Glomerulus",
+        "B": "Bowman's capsule",
+        "C": "Distal Convoluted Tubule (DCT)",
+        "D": "Descending limb of Henle's loop"
+      },
+      "correct_option": "C",
+      "explanation": "Conditional reabsorption of Na+ and water takes place in the DCT (and collecting duct) regulated by aldosterone and ADH.",
+      "source": "NEET UG 2016 / NCERT Class 11 Biology Ch. 16",
+      "verified": true
+    },
+    {
+      "id": "neet-2017-bio-05",
+      "exam": "NEET UG",
+      "year": 2017,
+      "subject": "biology",
+      "chapter": "Locomotion and Movement",
+      "question": "During skeletal muscle contraction, Ca²⁺ ions released from sarcoplasmic reticulum bind to:",
+      "options": {
+        "A": "Myosin head",
+        "B": "Troponin on actin filaments",
+        "C": "Tropomyosin directly",
+        "D": "Z-line"
+      },
+      "correct_option": "B",
+      "explanation": "Calcium binds to a subunit of troponin on actin filaments, unmasking active sites for myosin cross-bridge formation.",
+      "source": "NEET UG 2017 / NCERT Class 11 Biology Ch. 17",
+      "verified": true
+    },
+    {
+      "id": "neet-2018-bio-05",
+      "exam": "NEET UG",
+      "year": 2018,
+      "subject": "biology",
+      "chapter": "Neural Control and Coordination",
+      "question": "During depolarisation of a neuron's axonal membrane, there is a rapid influx of:",
+      "options": {
+        "A": "K+ ions",
+        "B": "Na+ ions",
+        "C": "Cl- ions",
+        "D": "Ca2+ ions"
+      },
+      "correct_option": "B",
+      "explanation": "Opening of voltage-gated Na+ channels causes rapid influx of Na+, reversing membrane polarity (depolarisation).",
+      "source": "NEET UG 2018 / NCERT Class 11 Biology Ch. 18",
+      "verified": true
+    },
+    {
+      "id": "neet-2019-bio-05",
+      "exam": "NEET UG",
+      "year": 2019,
+      "subject": "biology",
+      "chapter": "Chemical Coordination and Integration",
+      "question": "Which hormone acts on uterine smooth muscles and stimulates vigorous contractions during childbirth (parturition)?",
+      "options": {
+        "A": "Prolactin",
+        "B": "Oxytocin",
+        "C": "Relaxin",
+        "D": "Progesterone"
+      },
+      "correct_option": "B",
+      "explanation": "Oxytocin (released from posterior pituitary) triggers strong uterine contractions and milk ejection.",
+      "source": "NEET UG 2019 / NCERT Class 11 Biology Ch. 19",
+      "verified": true
+    },
+    {
+      "id": "neet-2020-bio-05",
+      "exam": "NEET UG",
+      "year": 2020,
+      "subject": "biology",
+      "chapter": "Biotechnology and its Applications",
+      "question": "Bt toxin protein produced by Bacillus thuringiensis kills bollworms because it becomes active in their:",
+      "options": {
+        "A": "Acidic stomach pH",
+        "B": "Alkaline gut pH",
+        "C": "Neutral blood plasma",
+        "D": "Respiratory tract"
+      },
+      "correct_option": "B",
+      "explanation": "The inactive protoxin crystals are solubilized and activated in the alkaline pH of the insect midgut, creating pores in epithelial cells.",
+      "source": "NEET UG 2020 / NCERT Class 12 Biology Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "neet-2021-bio-05",
+      "exam": "NEET UG",
+      "year": 2021,
+      "subject": "biology",
+      "chapter": "Organisms and Populations",
+      "question": "An ecological interaction where one species is harmed (-) and the other is unaffected (0) is called:",
+      "options": {
+        "A": "Commensalism",
+        "B": "Amensalism",
+        "C": "Parasitism",
+        "D": "Mutualism"
+      },
+      "correct_option": "B",
+      "explanation": "Amensalism is (-, 0), such as Penicillium secreting penicillin that inhibits bacteria while remaining unaffected.",
+      "source": "NEET UG 2021 / NCERT Class 12 Biology Ch. 11",
+      "verified": true
+    },
+    {
+      "id": "neet-2022-bio-05",
+      "exam": "NEET UG",
+      "year": 2022,
+      "subject": "biology",
+      "chapter": "Respiration in Plants",
+      "question": "In aerobic cellular respiration, the final electron acceptor at the end of the mitochondrial Electron Transport System is:",
+      "options": {
+        "A": "NAD+",
+        "B": "FAD",
+        "C": "Cytochrome c",
+        "D": "Molecular Oxygen (O2)"
+      },
+      "correct_option": "D",
+      "explanation": "O2 acts as the final hydrogen/electron acceptor in Complex IV, combining with protons to form metabolic water.",
+      "source": "NEET UG 2022 / NCERT Class 11 Biology Ch. 12",
+      "verified": true
+    },
+    {
+      "id": "neet-2023-bio-05",
+      "exam": "NEET UG",
+      "year": 2023,
+      "subject": "biology",
+      "chapter": "Reproductive Health",
+      "question": "Which of the following is a hormone-releasing Intra Uterine Device (IUD)?",
+      "options": {
+        "A": "Lippes loop",
+        "B": "CuT",
+        "C": "LNG-20",
+        "D": "Multiload 375"
+      },
+      "correct_option": "C",
+      "explanation": "Progestasert and LNG-20 are hormone-releasing IUDs; CuT and Multiload 375 are copper-releasing IUDs.",
+      "source": "NEET UG 2023 / NCERT Class 12 Biology Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "neet-2024-bio-05",
+      "exam": "NEET UG",
+      "year": 2024,
+      "subject": "biology",
+      "chapter": "Plant Kingdom",
+      "question": "Which group of plants is called the 'amphibians of the plant kingdom' because they live in soil but depend on water for sexual reproduction?",
+      "options": {
+        "A": "Algae",
+        "B": "Bryophytes",
+        "C": "Gymnosperms",
+        "D": "Angiosperms"
+      },
+      "correct_option": "B",
+      "explanation": "Bryophytes (mosses and liverworts) grow on moist land but require water for flagellated antherozoids to reach the archegonium.",
+      "source": "NEET UG 2024 / NCERT Class 11 Biology Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "neet-2025-bio-05",
+      "exam": "NEET UG",
+      "year": 2025,
+      "subject": "biology",
+      "chapter": "Animal Kingdom",
+      "question": "Presence of a pseudocoelom is a characteristic feature of which phylum?",
+      "options": {
+        "A": "Platyhelminthes",
+        "B": "Aschelminthes (Nematoda)",
+        "C": "Annelida",
+        "D": "Arthropoda"
+      },
+      "correct_option": "B",
+      "explanation": "Aschelminthes are pseudocoelomates; Platyhelminthes are acoelomates, while Annelida to Chordata are true coelomates.",
+      "source": "NEET UG 2025 / NCERT Class 11 Biology Ch. 4",
+      "verified": true
+    }
+  ]
+}

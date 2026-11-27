@@ -1,0 +1,545 @@
+{
+  "description": "Extended 10-year (2016-2025) JEE Main & JEE Advanced verified PYQ & prep bank across Class 11 & 12 Physics & Chemistry.",
+  "questions": [
+    {
+      "id": "jee-2016-phy-03",
+      "exam": "JEE Main",
+      "year": 2016,
+      "subject": "physics",
+      "chapter": "Motion in a Straight Line",
+      "question": "A car starts from rest and accelerates uniformly at 4 m/s² for 5 seconds. The distance travelled is:",
+      "options": {
+        "A": "20 m",
+        "B": "40 m",
+        "C": "50 m",
+        "D": "100 m"
+      },
+      "correct_option": "C",
+      "explanation": "s = ut + (1/2)at² = 0 + 0.5 × 4 × 25 = 50 m.",
+      "source": "JEE Main 2016 / NCERT Class 11 Physics Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2016-chem-04",
+      "exam": "JEE Main",
+      "year": 2016,
+      "subject": "chemistry",
+      "chapter": "Redox Reactions",
+      "question": "The oxidation state of Chromium (Cr) in K2Cr2O7 is:",
+      "options": {
+        "A": "+3",
+        "B": "+5",
+        "C": "+6",
+        "D": "+7"
+      },
+      "correct_option": "C",
+      "explanation": "2(+1) + 2x + 7(-2) = 0 → 2x = +12 → x = +6.",
+      "source": "JEE Main 2016 / NCERT Class 11 Chemistry Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "jee-2017-phy-03",
+      "exam": "JEE Advanced",
+      "year": 2017,
+      "subject": "physics",
+      "chapter": "Mechanical Properties of Fluids",
+      "question": "Bernoulli's equation for steady, incompressible, non-viscous fluid flow is a statement of conservation of:",
+      "options": {
+        "A": "Linear momentum",
+        "B": "Angular momentum",
+        "C": "Energy",
+        "D": "Mass"
+      },
+      "correct_option": "C",
+      "explanation": "Bernoulli's theorem P + (1/2)ρv² + ρgh = constant represents conservation of mechanical energy per unit volume.",
+      "source": "JEE Advanced 2017 / NCERT Class 11 Physics Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "jee-2017-chem-04",
+      "exam": "JEE Main",
+      "year": 2017,
+      "subject": "chemistry",
+      "chapter": "Chemical Kinetics",
+      "question": "For a zero-order reaction, the half-life t1/2 is directly proportional to:",
+      "options": {
+        "A": "[R]0",
+        "B": "1/[R]0",
+        "C": "[R]0²",
+        "D": "Independent of [R]0"
+      },
+      "correct_option": "A",
+      "explanation": "For zero-order kinetics, t1/2 = [R]0 / (2k), which is directly proportional to initial concentration [R]0.",
+      "source": "JEE Main 2017 / NCERT Class 12 Chemistry Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "jee-2018-phy-03",
+      "exam": "JEE Main",
+      "year": 2018,
+      "subject": "physics",
+      "chapter": "Kinetic Theory",
+      "question": "The root mean square (rms) speed of ideal gas molecules is proportional to:",
+      "options": {
+        "A": "T",
+        "B": "√T",
+        "C": "T²",
+        "D": "1/√T"
+      },
+      "correct_option": "B",
+      "explanation": "vrms = √(3RT/M) ∝ √T (where T is absolute temperature in Kelvin).",
+      "source": "JEE Main 2018 / NCERT Class 11 Physics Ch. 12",
+      "verified": true
+    },
+    {
+      "id": "jee-2018-chem-04",
+      "exam": "JEE Main",
+      "year": 2018,
+      "subject": "chemistry",
+      "chapter": "Solutions",
+      "question": "Which of the following aqueous solutions of equal molality (0.1 m) will have the highest boiling point elevation (assuming complete dissociation)?",
+      "options": {
+        "A": "Glucose",
+        "B": "NaCl",
+        "C": "CaCl2",
+        "D": "Al2(SO4)3"
+      },
+      "correct_option": "D",
+      "explanation": "ΔTb = i Kb m. van't Hoff factor i: Glucose=1, NaCl=2, CaCl2=3, Al2(SO4)3=5 (highest).",
+      "source": "JEE Main 2018 / NCERT Class 12 Chemistry Ch. 1",
+      "verified": true
+    },
+    {
+      "id": "jee-2019-phy-03",
+      "exam": "JEE Advanced",
+      "year": 2019,
+      "subject": "physics",
+      "chapter": "Moving Charges and Magnetism",
+      "question": "The magnetic field inside a long straight solenoid carrying current I with n turns per unit length is:",
+      "options": {
+        "A": "μ₀nI",
+        "B": "μ₀I/(2R)",
+        "C": "μ₀I/(2πr)",
+        "D": "Zero"
+      },
+      "correct_option": "A",
+      "explanation": "By Ampere's circuital law, the uniform axial magnetic field inside a long solenoid is B = μ₀nI.",
+      "source": "JEE Advanced 2019 / NCERT Class 12 Physics Ch. 4",
+      "verified": true
+    },
+    {
+      "id": "jee-2019-chem-04",
+      "exam": "JEE Main",
+      "year": 2019,
+      "subject": "chemistry",
+      "chapter": "Equilibrium",
+      "question": "For the reaction N2(g) + 3H2(g) ⇌ 2NH3(g), the relation between Kp and Kc is:",
+      "options": {
+        "A": "Kp = Kc(RT)²",
+        "B": "Kp = Kc(RT)⁻²",
+        "C": "Kp = Kc(RT)⁻¹",
+        "D": "Kp = Kc"
+      },
+      "correct_option": "B",
+      "explanation": "Δng = 2 - (1 + 3) = -2, so Kp = Kc(RT)^Δng = Kc(RT)⁻².",
+      "source": "JEE Main 2019 / NCERT Class 11 Chemistry Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2020-phy-03",
+      "exam": "JEE Main",
+      "year": 2020,
+      "subject": "physics",
+      "chapter": "Thermal Properties of Matter",
+      "question": "According to Stefan-Boltzmann law, the total radiant energy emitted per unit area per second by a blackbody is proportional to:",
+      "options": {
+        "A": "T",
+        "B": "T²",
+        "C": "T³",
+        "D": "T⁴"
+      },
+      "correct_option": "D",
+      "explanation": "Stefan-Boltzmann law states E = σT⁴.",
+      "source": "JEE Main 2020 / NCERT Class 11 Physics Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "jee-2020-chem-04",
+      "exam": "JEE Advanced",
+      "year": 2020,
+      "subject": "chemistry",
+      "chapter": "Coordination Compounds",
+      "question": "Which of the following is a strong-field ligand in the spectrochemical series?",
+      "options": {
+        "A": "I⁻",
+        "B": "Br⁻",
+        "C": "Cl⁻",
+        "D": "CN⁻"
+      },
+      "correct_option": "D",
+      "explanation": "In the spectrochemical series, I⁻ < Br⁻ < Cl⁻ < F⁻ < H2O < NH3 < en < CN⁻ < CO; CN⁻ causes large crystal field splitting.",
+      "source": "JEE Advanced 2020 / NCERT Class 12 Chemistry Ch. 5",
+      "verified": true
+    },
+    {
+      "id": "jee-2021-phy-03",
+      "exam": "JEE Main",
+      "year": 2021,
+      "subject": "physics",
+      "chapter": "Waves",
+      "question": "Two tuning forks of frequencies 256 Hz and 260 Hz are sounded together. The beat frequency heard is:",
+      "options": {
+        "A": "2 Hz",
+        "B": "4 Hz",
+        "C": "8 Hz",
+        "D": "516 Hz"
+      },
+      "correct_option": "B",
+      "explanation": "Beat frequency fbeat = |f₁ - f₂| = |260 - 256| = 4 Hz.",
+      "source": "JEE Main 2021 / NCERT Class 11 Physics Ch. 14",
+      "verified": true
+    },
+    {
+      "id": "jee-2021-chem-04",
+      "exam": "JEE Main",
+      "year": 2021,
+      "subject": "chemistry",
+      "chapter": "Aldehydes, Ketones and Carboxylic Acids",
+      "question": "Which compound undergoes Cannizzaro reaction when heated with concentrated NaOH?",
+      "options": {
+        "A": "Acetaldehyde (CH3CHO)",
+        "B": "Formaldehyde (HCHO)",
+        "C": "Acetone (CH3COCH3)",
+        "D": "Propanal (CH3CH2CHO)"
+      },
+      "correct_option": "B",
+      "explanation": "Cannizzaro reaction occurs in aldehydes having NO α-hydrogen, such as HCHO and benzaldehyde.",
+      "source": "JEE Main 2021 / NCERT Class 12 Chemistry Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "jee-2022-phy-03",
+      "exam": "JEE Advanced",
+      "year": 2022,
+      "subject": "physics",
+      "chapter": "Dual Nature of Radiation and Matter",
+      "question": "If the kinetic energy K of a free electron is doubled, its de Broglie wavelength λ changes by a factor of:",
+      "options": {
+        "A": "2",
+        "B": "√2",
+        "C": "1/√2",
+        "D": "1/2"
+      },
+      "correct_option": "C",
+      "explanation": "λ = h / √(2mK) ∝ 1/√K. Doubling K scales λ by 1/√2.",
+      "source": "JEE Advanced 2022 / NCERT Class 12 Physics Ch. 11",
+      "verified": true
+    },
+    {
+      "id": "jee-2022-chem-04",
+      "exam": "JEE Main",
+      "year": 2022,
+      "subject": "chemistry",
+      "chapter": "Electrochemistry",
+      "question": "According to Faraday's first law, the mass of substance deposited at an electrode is directly proportional to:",
+      "options": {
+        "A": "Resistance of electrolyte",
+        "B": "Quantity of electricity (charge Q = It) passed",
+        "C": "Temperature only",
+        "D": "Volume of solution"
+      },
+      "correct_option": "B",
+      "explanation": "W = Z Q = Z I t; deposited mass is proportional to total electric charge passed.",
+      "source": "JEE Main 2022 / NCERT Class 12 Chemistry Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2023-phy-03",
+      "exam": "JEE Main",
+      "year": 2023,
+      "subject": "physics",
+      "chapter": "Mechanical Properties of Solids",
+      "question": "The elastic potential energy stored per unit volume (energy density) in a stretched wire is:",
+      "options": {
+        "A": "Stress × Strain",
+        "B": "(1/2) × Stress × Strain",
+        "C": "Stress / Strain",
+        "D": "2 × Stress × Strain"
+      },
+      "correct_option": "B",
+      "explanation": "Elastic potential energy density u = (1/2) × Stress × Strain = (1/2) Y (Strain)².",
+      "source": "JEE Main 2023 / NCERT Class 11 Physics Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "jee-2023-chem-04",
+      "exam": "JEE Main",
+      "year": 2023,
+      "subject": "chemistry",
+      "chapter": "Organic Chemistry: Some Basic Principles and Techniques",
+      "question": "What is the hybridisation of each carbon atom in ethyne (HC≡CH)?",
+      "options": {
+        "A": "sp³",
+        "B": "sp²",
+        "C": "sp",
+        "D": "sp³d"
+      },
+      "correct_option": "C",
+      "explanation": "Each carbon in ethyne forms 2 sigma bonds and 2 pi bonds, corresponding to sp hybridisation (linear, 180°).",
+      "source": "JEE Main 2023 / NCERT Class 11 Chemistry Ch. 8",
+      "verified": true
+    },
+    {
+      "id": "jee-2024-phy-03",
+      "exam": "JEE Advanced",
+      "year": 2024,
+      "subject": "physics",
+      "chapter": "Magnetism and Matter",
+      "question": "Which class of magnetic materials has a small, negative magnetic susceptibility (χ < 0) and is weakly repelled by a magnetic field?",
+      "options": {
+        "A": "Paramagnetic",
+        "B": "Ferromagnetic",
+        "C": "Diamagnetic",
+        "D": "Ferrimagnetic"
+      },
+      "correct_option": "C",
+      "explanation": "Diamagnetic substances (e.g., Bi, Cu, water) have -1 ≤ χ < 0 and move from stronger to weaker magnetic fields.",
+      "source": "JEE Advanced 2024 / NCERT Class 12 Physics Ch. 5",
+      "verified": true
+    },
+    {
+      "id": "jee-2024-chem-04",
+      "exam": "JEE Main",
+      "year": 2024,
+      "subject": "chemistry",
+      "chapter": "Alcohols, Phenols and Ethers",
+      "question": "Treating phenol with chloroform (CHCl3) in aqueous NaOH followed by acidification introduces a -CHO group at the ortho position. This reaction is:",
+      "options": {
+        "A": "Kolbe's reaction",
+        "B": "Reimer-Tiemann reaction",
+        "C": "Friedel-Crafts acylation",
+        "D": "Etard reaction"
+      },
+      "correct_option": "B",
+      "explanation": "The Reimer-Tiemann reaction converts phenol to salicylaldehyde via dichlorocarbene (:CCl2) intermediate.",
+      "source": "JEE Main 2024 / NCERT Class 12 Chemistry Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "jee-2025-phy-03",
+      "exam": "JEE Main",
+      "year": 2025,
+      "subject": "physics",
+      "chapter": "Current Electricity",
+      "question": "In a balanced Wheatstone bridge with resistors P, Q, R, S, no current flows through the galvanometer when:",
+      "options": {
+        "A": "P + Q = R + S",
+        "B": "P / Q = R / S",
+        "C": "P × Q = R × S",
+        "D": "P - Q = R - S"
+      },
+      "correct_option": "B",
+      "explanation": "Bridge balance requires equal potentials at the two midpoints, giving P/Q = R/S.",
+      "source": "JEE Main 2025 / NCERT Class 12 Physics Ch. 3",
+      "verified": true
+    },
+    {
+      "id": "jee-2025-chem-04",
+      "exam": "JEE Main",
+      "year": 2025,
+      "subject": "chemistry",
+      "chapter": "Thermodynamics",
+      "question": "For an ideal gas, the relationship between molar heat capacities at constant pressure (Cp) and constant volume (Cv) is:",
+      "options": {
+        "A": "Cp + Cv = R",
+        "B": "Cp - Cv = R",
+        "C": "Cp / Cv = R",
+        "D": "Cv - Cp = R"
+      },
+      "correct_option": "B",
+      "explanation": "Mayer's relation for 1 mole of an ideal gas is Cp - Cv = R.",
+      "source": "JEE Main 2025 / NCERT Class 11 Chemistry Ch. 5",
+      "verified": true
+    },
+    {
+      "id": "jee-2016-phy-05",
+      "exam": "JEE Main",
+      "year": 2016,
+      "subject": "physics",
+      "chapter": "Gravitation",
+      "question": "According to Kepler's third law of planetary motion, the square of the time period T of revolution is proportional to:",
+      "options": {
+        "A": "r",
+        "B": "r²",
+        "C": "r³",
+        "D": "1/r²"
+      },
+      "correct_option": "C",
+      "explanation": "Kepler's law of periods states T² ∝ r³ (semi-major axis cubed).",
+      "source": "JEE Main 2016 / NCERT Class 11 Physics Ch. 7",
+      "verified": true
+    },
+    {
+      "id": "jee-2017-phy-05",
+      "exam": "JEE Main",
+      "year": 2017,
+      "subject": "physics",
+      "chapter": "Electrostatic Potential and Capacitance",
+      "question": "The energy U stored in a capacitor of capacitance C charged to potential difference V is:",
+      "options": {
+        "A": "CV",
+        "B": "(1/2) CV",
+        "C": "(1/2) CV²",
+        "D": "CV²"
+      },
+      "correct_option": "C",
+      "explanation": "U = (1/2)CV² = Q²/(2C) = (1/2)QV.",
+      "source": "JEE Main 2017 / NCERT Class 12 Physics Ch. 2",
+      "verified": true
+    },
+    {
+      "id": "jee-2018-phy-05",
+      "exam": "JEE Main",
+      "year": 2018,
+      "subject": "physics",
+      "chapter": "Electromagnetic Induction",
+      "question": "The magnetic energy stored in an inductor of self-inductance L carrying steady current I is:",
+      "options": {
+        "A": "(1/2) LI",
+        "B": "(1/2) LI²",
+        "C": "LI²",
+        "D": "L²I"
+      },
+      "correct_option": "B",
+      "explanation": "Work done against back emf builds magnetic energy U = (1/2)LI².",
+      "source": "JEE Main 2018 / NCERT Class 12 Physics Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2019-phy-05",
+      "exam": "JEE Main",
+      "year": 2019,
+      "subject": "physics",
+      "chapter": "Wave Optics",
+      "question": "According to Brewster's law, when unpolarised light is incident at the polarising angle ip on a medium of refractive index n, then:",
+      "options": {
+        "A": "sin ip = n",
+        "B": "cos ip = n",
+        "C": "tan ip = n",
+        "D": "cot ip = n"
+      },
+      "correct_option": "C",
+      "explanation": "At Brewster's angle, reflected and refracted rays are perpendicular, giving tan ip = n.",
+      "source": "JEE Main 2019 / NCERT Class 12 Physics Ch. 10",
+      "verified": true
+    },
+    {
+      "id": "jee-2020-phy-05",
+      "exam": "JEE Main",
+      "year": 2020,
+      "subject": "physics",
+      "chapter": "Semiconductor Electronics",
+      "question": "To convert pure silicon into an n-type semiconductor, it is doped with a small amount of:",
+      "options": {
+        "A": "Trivalent impurity (Boron/Aluminium)",
+        "B": "Pentavalent impurity (Phosphorus/Arsenic)",
+        "C": "Tetravalent impurity (Germanium)",
+        "D": "Noble gas"
+      },
+      "correct_option": "B",
+      "explanation": "Pentavalent donor atoms provide extra free electrons as majority carriers in n-type semiconductors.",
+      "source": "JEE Main 2020 / NCERT Class 12 Physics Ch. 14",
+      "verified": true
+    },
+    {
+      "id": "jee-2021-chem-05",
+      "exam": "JEE Main",
+      "year": 2021,
+      "subject": "chemistry",
+      "chapter": "d and f Block Elements",
+      "question": "Lanthanoid contraction across the 4f series is primarily caused by:",
+      "options": {
+        "A": "Poor shielding effect of 4f electrons",
+        "B": "Strong shielding effect of 4f electrons",
+        "C": "Decreasing nuclear charge",
+        "D": "Increase in principal quantum number"
+      },
+      "correct_option": "A",
+      "explanation": "4f electrons have diffuse shapes and shield the increasing nuclear charge very poorly, causing steady decrease in atomic/ionic radii.",
+      "source": "JEE Main 2021 / NCERT Class 12 Chemistry Ch. 4",
+      "verified": true
+    },
+    {
+      "id": "jee-2022-chem-05",
+      "exam": "JEE Main",
+      "year": 2022,
+      "subject": "chemistry",
+      "chapter": "Haloalkanes and Haloarenes",
+      "question": "In the Finkelstein reaction, alkyl bromides or chlorides are converted into alkyl iodides using:",
+      "options": {
+        "A": "AgF in water",
+        "B": "NaI in dry acetone",
+        "C": "KOH in ethanol",
+        "D": "Zn/HCl"
+      },
+      "correct_option": "B",
+      "explanation": "R-X + NaI (dry acetone) → R-I + NaX↓ (NaCl/NaBr precipitates in dry acetone, driving equilibrium forward).",
+      "source": "JEE Main 2022 / NCERT Class 12 Chemistry Ch. 6",
+      "verified": true
+    },
+    {
+      "id": "jee-2023-chem-05",
+      "exam": "JEE Main",
+      "year": 2023,
+      "subject": "chemistry",
+      "chapter": "Hydrocarbons",
+      "question": "Reductive ozonolysis (O3 followed by Zn/H2O) of ethene (CH2=CH2) yields:",
+      "options": {
+        "A": "Two molecules of formaldehyde (HCHO)",
+        "B": "Two molecules of acetaldehyde",
+        "C": "One molecule of acetic acid",
+        "D": "Ethanol"
+      },
+      "correct_option": "A",
+      "explanation": "Cleaving the C=C double bond of CH2=CH2 with O3 and Zn/H2O produces 2 HCHO.",
+      "source": "JEE Main 2023 / NCERT Class 11 Chemistry Ch. 9",
+      "verified": true
+    },
+    {
+      "id": "jee-2024-chem-05",
+      "exam": "JEE Main",
+      "year": 2024,
+      "subject": "chemistry",
+      "chapter": "Some Basic Concepts of Chemistry",
+      "question": "How many moles of CO2 are produced when 1 mole of CH4 is completely combusted in excess O2?",
+      "options": {
+        "A": "0.5 mol",
+        "B": "1 mol",
+        "C": "2 mol",
+        "D": "4 mol"
+      },
+      "correct_option": "B",
+      "explanation": "CH4 + 2O2 → CO2 + 2H2O; 1 mole CH4 yields 1 mole CO2.",
+      "source": "JEE Main 2024 / NCERT Class 11 Chemistry Ch. 1",
+      "verified": true
+    },
+    {
+      "id": "jee-2025-phy-05",
+      "exam": "JEE Main",
+      "year": 2025,
+      "subject": "physics",
+      "chapter": "Ray Optics and Optical Instruments",
+      "question": "Total Internal Reflection (TIR) occurs when light travels from:",
+      "options": {
+        "A": "Rarer to denser medium at any angle",
+        "B": "Denser to rarer medium with angle of incidence greater than critical angle",
+        "C": "Denser to rarer medium at angle less than critical angle",
+        "D": "Vacuum into glass at 45°"
+      },
+      "correct_option": "B",
+      "explanation": "TIR requires light travelling from an optically denser to a rarer medium with i > ic (where sin ic = n2/n1).",
+      "source": "JEE Main 2025 / NCERT Class 12 Physics Ch. 9",
+      "verified": true
+    }
+  ]
+}

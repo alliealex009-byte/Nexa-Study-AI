@@ -1,4 +1,4 @@
-"""Interactive MCQ quiz engine with per-question timers (60s Physics, 45s others) & exam filtering."""
+"""Interactive MCQ quiz engine with per-question timers (60s Physics, 45s others) & no-repeat filtering."""
 
 from __future__ import annotations
 
@@ -53,7 +53,7 @@ class QuizSession:
 
 
 class QuizService:
-    """Manages chapter-wise, subject-wise, mixed, and timed MCQ quizzes with exam filtering."""
+    """Manages chapter-wise, subject-wise, mixed, and timed MCQ quizzes with exam & no-repeat filtering."""
 
     def __init__(self, pyq_service: PYQService) -> None:
         self._pyq_service = pyq_service
@@ -69,14 +69,16 @@ class QuizService:
         chapter: str | None = None,
         num_questions: int = 5,
         time_limit_seconds: int | None = None,
+        exclude_ids: set[str] | None = None,
     ) -> QuizSession | None:
-        """Create and store a new quiz session strictly filtered to the student's target exam."""
+        """Create and store a new quiz session strictly filtered to exam & unseen questions."""
         pool = self._pyq_service.query(
             exam=exam,
             subject=None if mode in ("mixed", "timed") and not subject else subject,
             chapter=chapter,
             limit=max(1, num_questions),
             shuffle=True,
+            exclude_ids=exclude_ids,
         )
         if not pool:
             return None
@@ -99,10 +101,7 @@ class QuizService:
         self._sessions.pop(user_id, None)
 
     def submit_answer(self, user_id: int, selected_option: str) -> tuple[bool, QuizSession | None, bool]:
-        """Record an answer for the current question.
-
-        Returns: (accepted, session, is_finished)
-        """
+        """Record an answer for the current question."""
         session = self._sessions.get(user_id)
         if session is None:
             return False, None, True

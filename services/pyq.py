@@ -1,4 +1,4 @@
-"""Verified 10-Year (2016–2025) NEET UG, JEE Main, and JEE Advanced PYQ service."""
+"""Verified 10-Year (2016–2025) NEET UG, JEE Main, and JEE Advanced PYQ service with no-repeat filtering."""
 
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ class PYQItem:
 
 
 class PYQService:
-    """Loads and queries verified PYQ JSON files without ever fabricating exam metadata."""
+    """Loads and queries verified PYQ JSON files with strict no-repeat pool tracking."""
 
     def __init__(self, data_dir: Path) -> None:
         self._data_dir = data_dir
@@ -131,9 +131,10 @@ class PYQService:
         year: int | None = None,
         limit: int = 10,
         shuffle: bool = False,
+        exclude_ids: set[str] | None = None,
     ) -> list[PYQItem]:
-        """Filter verified PYQs by exam, subject, chapter, and/or year."""
-        results = [
+        """Filter verified PYQs, prioritizing unseen questions so questions never repeat."""
+        all_matches = [
             item
             for item in self._items
             if self._exam_matches(item.exam, exam)
@@ -141,9 +142,28 @@ class PYQService:
             and (not chapter or item.chapter.lower() == chapter.lower())
             and (not year or item.year == year)
         ]
+        if not all_matches:
+            return []
+
+        if exclude_ids:
+            unseen = [item for item in all_matches if item.pyq_id not in exclude_ids]
+            if len(unseen) >= limit:
+                pool = unseen
+            elif unseen:
+                # Serve remaining unseen first, then wrap around only if more are requested for a quiz batch
+                seen_pool = [item for item in all_matches if item.pyq_id in exclude_ids]
+                if shuffle:
+                    random.shuffle(unseen)
+                    random.shuffle(seen_pool)
+                return (unseen + seen_pool)[:limit]
+            else:
+                pool = list(all_matches)
+        else:
+            pool = list(all_matches)
+
         if shuffle:
-            random.shuffle(results)
-        return results[:limit]
+            random.shuffle(pool)
+        return pool[:limit]
 
     def random_question(
         self,
@@ -151,10 +171,23 @@ class PYQService:
         exam: str | None = None,
         subject: str | None = None,
         year: int | None = None,
-    ) -> PYQItem | None:
-        """Pick a single random prep question matching optional exam/subject/year filters."""
-        pool = self.query(exam=exam, subject=subject, year=year, limit=len(self._items) or 1, shuffle=True)
-        return pool[0] if pool else None
+        exclude_ids: set[str] | None = None,
+    ) -> tuple[PYQItem | None, bool]:
+        """Pick a single unseen random question.
+
+        Returns (item, pool_wrapped_around) so callers can reset seen IDs if the entire pool was completed.
+        """
+        all_matches = self.query(exam=exam, subject=subject, year=year, limit=len(self._items) or 1, shuffle=False)
+        if not all_matches:
+            return None, False
+
+        if exclude_ids:
+            unseen = [item for item in all_matches if item.pyq_id not in exclude_ids]
+            if unseen:
+                return random.choice(unseen), False
+            return random.choice(all_matches), True
+
+        return random.choice(all_matches), False
 
     def find_matching_pyq(self, text: str, min_overlap: float = 0.65) -> PYQItem | None:
         """Return a verified PYQ if the student's text/OCR closely matches a known PYQ stem."""

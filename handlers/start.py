@@ -1,4 +1,4 @@
-"""Start, menu, inline sub-menus, Telegram Widgets, settings, and help handlers."""
+"""Start, DM NEET/JEE onboarding, menu, inline sub-menus, widgets, settings, and help handlers."""
 
 from __future__ import annotations
 
@@ -11,9 +11,14 @@ from aiogram.types import CallbackQuery, Message
 from config import Settings
 from database.progress import ProgressRepository
 from database.users import UserRepository
-from keyboards.main import back_to_menu_keyboard, main_menu_keyboard
+from keyboards.main import (
+    back_to_menu_keyboard,
+    exam_onboarding_keyboard,
+    main_menu_keyboard,
+)
 from keyboards.styles import tg_emoji
 from keyboards.subjects import settings_keyboard, subject_submenu_keyboard, widget_menu_keyboard
+from services.analytics import pick_motivational_quote
 from services.pyq import PYQService
 from services.widgets import (
     build_formula_timer_widget_html,
@@ -25,14 +30,17 @@ from services.widgets import (
 router = Router(name="start")
 
 
-def _welcome_html(settings: Settings) -> str:
+def _welcome_html(settings: Settings, target_exam: str = "NEET UG") -> str:
     spark = tg_emoji("spark", settings)
+    exam_label = html_lib.escape(target_exam)
     return (
         f"{spark} <b>Welcome to NEXA STUDY AI</b>\n\n"
-        "Your free, self-hosted <b>NEET UG &amp; JEE</b> study assistant powered by <b>AAKASH AI</b>.\n\n"
+        "Your free, self-hosted <b>NEET UG &amp; JEE</b> study assistant powered by <b>AAKASH AI</b>.\n"
+        f"🎯 Active Exam Track: <b>{exam_label}</b>\n\n"
         "• Tap any colored subject button below for its inline sub-menu\n"
-        "• Send a clear photo of a question for instant ARM64 OCR\n"
-        "• Use <code>/random</code>, <code>/neet</code>, <code>/jee</code>, or <code>/poll</code> in <b>DM or Group Chats</b>"
+        "• Send a clear photo of a question for instant OCR / Vision AI\n"
+        "• Use <code>/random</code>, <code>/neet</code>, <code>/jee</code>, or <code>/poll</code> in <b>DM or Group Chats</b>\n"
+        "• Timers: <b>45s</b> (Bio/Chem) &amp; <b>60s</b> (Physics) with auto-next &amp; 4-min cleanup"
     )
 
 
@@ -40,33 +48,91 @@ def _help_html(settings: Settings) -> str:
     info = tg_emoji("help", settings)
     return (
         f"{info} <b>How to use NEXA STUDY AI</b>\n\n"
-        "<b>1. Subject Sub-Menus</b>: Tap Biology, Chemistry, or Physics for doubts, 10-yr PYQs, NCERT Class 11 &amp; 12 chapters, quizzes &amp; polls.\n"
-        "<b>2. Solve from Image (OCR)</b>: Send any cropped, well-lit question photo.\n"
-        "<b>3. 10-Year Random Prep (DM &amp; Group Chats)</b>:\n"
-        "   • <code>/random</code> or <code>/prep</code> — Random NEET/JEE prep question\n"
-        "   • <code>/neet</code> — Random 10-year (2016–2025) NEET UG question\n"
-        "   • <code>/jee</code> — Random 10-year (2016–2025) JEE Main/Adv question\n"
-        "   • <code>/poll</code> — Native Telegram Quiz Poll (great for study groups!)\n"
-        "   • <code>/ask &lt;question&gt;</code> — Ask AAKASH AI a doubt inside a group chat\n\n"
+        "<b>1. Exam Track</b>: Choose NEET UG or JEE in DM (or Settings) to receive exam-matched questions.\n"
+        "<b>2. Auto-Next Practice &amp; Polls</b>:\n"
+        "   • <code>/random</code> or <code>/prep</code> — Auto-advancing 10-year PYQs (45s Bio/Chem, 60s Physics)\n"
+        "   • <code>/poll</code> — Auto-advancing Telegram Quiz Polls (great for study groups!)\n"
+        "   • <code>/neet</code> / <code>/jee</code> — Instant exam-specific random question\n"
+        "   • Previous questions auto-delete after 4 minutes to keep chats clean.\n"
+        "<b>3. Solve from Image</b>: Send any cropped, well-lit question photo.\n"
+        "<b>4. Progress Graphics</b>: Tap <b>My Progress</b> or <code>/progress</code> for Today/Weekly/Monthly stats, weak-topic chart &amp; daily motivation.\n\n"
         "Commands: <code>/start</code>, <code>/menu</code>, <code>/random</code>, <code>/neet</code>, <code>/jee</code>, <code>/poll</code>, <code>/progress</code>, <code>/help</code>"
     )
 
 
 @router.message(CommandStart())
-@router.message(Command("menu"))
-async def cmd_start(message: Message, users: UserRepository, settings: Settings) -> None:
-    """Register user and display the colored premium-emoji main menu (works in DM & groups)."""
+async def cmd_start(
+    message: Message,
+    users: UserRepository,
+    settings: Settings,
+    bot_username: str = "",
+) -> None:
+    """Register user; in DM prompt first-time users to pick NEET UG or JEE."""
+    user = {"target_exam": "NEET UG", "exam_selected": True}
     if message.from_user:
-        users.upsert_user(
+        user = users.upsert_user(
             message.from_user.id,
             first_name=message.from_user.first_name or "",
             username=message.from_user.username or "",
         )
+
+    if message.chat.type == "private" and not user.get("exam_selected", False):
+        spark = tg_emoji("spark", settings)
+        await message.answer(
+            f"{spark} <b>Welcome to NEXA STUDY AI</b> (powered by <b>AAKASH AI</b>)!\n\n"
+            "Before we start, which exam are you preparing for?\n"
+            "I'll save your choice in memory so your random prep, quizzes, and polls match your exact exam:",
+            reply_markup=exam_onboarding_keyboard(settings),
+            parse_mode="HTML",
+        )
+        return
+
     await message.answer(
-        _welcome_html(settings),
-        reply_markup=main_menu_keyboard(settings),
+        _welcome_html(settings, user.get("target_exam", "NEET UG")),
+        reply_markup=main_menu_keyboard(settings, bot_username),
         parse_mode="HTML",
     )
+
+
+@router.message(Command("menu"))
+async def cmd_menu(
+    message: Message,
+    users: UserRepository,
+    settings: Settings,
+    bot_username: str = "",
+) -> None:
+    """Display main menu directly."""
+    target_exam = "NEET UG"
+    if message.from_user:
+        user = users.get_user(message.from_user.id)
+        target_exam = user.get("target_exam", "NEET UG")
+    await message.answer(
+        _welcome_html(settings, target_exam),
+        reply_markup=main_menu_keyboard(settings, bot_username),
+        parse_mode="HTML",
+    )
+
+
+@router.callback_query(F.data.startswith("onboard:exam:"))
+async def cb_onboard_exam(
+    callback: CallbackQuery,
+    users: UserRepository,
+    settings: Settings,
+    bot_username: str = "",
+) -> None:
+    """Save the student's NEET UG or JEE exam choice in memory/MongoDB and open main menu."""
+    exam = callback.data.split("onboard:exam:", 1)[1]
+    users.update_preferences(callback.from_user.id, target_exam=exam, exam_selected=True)
+    quote = pick_motivational_quote()
+    if callback.message:
+        await callback.message.answer(
+            f"✅ Saved! You are now on the <b>{html_lib.escape(exam)}</b> track — you'll get <b>{html_lib.escape(exam)}</b> questions automatically.\n\n"
+            f"💡 <i>{html_lib.escape(quote)}</i>\n\n"
+            + _welcome_html(settings, exam),
+            reply_markup=main_menu_keyboard(settings, bot_username),
+            parse_mode="HTML",
+        )
+    await callback.answer(f"Exam saved: {exam}")
 
 
 @router.message(Command("help"))
@@ -80,12 +146,18 @@ async def cmd_help(message: Message, settings: Settings) -> None:
 
 
 @router.callback_query(F.data == "menu:home")
-async def cb_home(callback: CallbackQuery, settings: Settings) -> None:
+async def cb_home(
+    callback: CallbackQuery,
+    users: UserRepository,
+    settings: Settings,
+    bot_username: str = "",
+) -> None:
     """Return to main menu."""
+    user = users.get_user(callback.from_user.id)
     if callback.message:
         await callback.message.answer(
-            _welcome_html(settings),
-            reply_markup=main_menu_keyboard(settings),
+            _welcome_html(settings, user.get("target_exam", "NEET UG")),
+            reply_markup=main_menu_keyboard(settings, bot_username),
             parse_mode="HTML",
         )
     await callback.answer()
@@ -149,8 +221,9 @@ async def cb_send_widget(
     settings: Settings,
     progress: ProgressRepository,
     pyq_service: PYQService,
+    users: UserRepository,
 ) -> None:
-    """Send one of the Bot API 10.4 interactive HTML widgets (with safe fallback)."""
+    """Send one of the interactive study cards (with safe fallback)."""
     if not callback.message:
         await callback.answer()
         return
@@ -158,14 +231,15 @@ async def cb_send_widget(
     kind = callback.data.split("widget:", 1)[1]
     chat_id = callback.message.chat.id
     chat_type = callback.message.chat.type
+    user = users.get_user(callback.from_user.id)
 
     if kind == "progress":
         summary = progress.get_summary(callback.from_user.id)
         widget_html = build_progress_widget_html(summary, callback.from_user.first_name or "Student")
         fallback = (
             f"📊 <b>Progress Snapshot</b>\n"
-            f"• Attempted: <b>{summary['questions_attempted']}</b> | Accuracy: <b>{summary['quiz_accuracy']:.1f}%</b>\n"
-            f"• Quizzes: <b>{summary['quizzes_completed']}</b> | Active Days: <b>{summary['active_days_count']}</b>"
+            f"• Today: <b>{summary['today_questions']}</b> | Weekly: <b>{summary['weekly_questions']}</b> | Monthly: <b>{summary['monthly_questions']}</b>\n"
+            f"• Accuracy: <b>{summary['quiz_accuracy']:.1f}%</b>"
         )
         await send_widget_or_fallback(
             bot=bot,
@@ -179,7 +253,7 @@ async def cb_send_widget(
             height=300,
         )
     elif kind == "pyq":
-        item = pyq_service.random_question()
+        item = pyq_service.random_question(exam=user.get("target_exam"))
         if not item:
             await callback.answer("No PYQs available.", show_alert=True)
             return
@@ -187,7 +261,7 @@ async def cb_send_widget(
         fallback = (
             f"📝 <b>{html_lib.escape(item.exam)} {item.year}</b> ({html_lib.escape(item.chapter)})\n\n"
             f"{html_lib.escape(item.question)}\n\n"
-            f"Tap /random for interactive buttons!"
+            "Tap /random for interactive buttons!"
         )
         await send_widget_or_fallback(
             bot=bot,
@@ -251,7 +325,7 @@ async def cb_settings(callback: CallbackQuery, users: UserRepository, settings: 
 async def cb_set_exam(callback: CallbackQuery, users: UserRepository, settings: Settings) -> None:
     """Update user's target exam preference."""
     exam = callback.data.split("set:exam:", 1)[1]
-    user = users.update_preferences(callback.from_user.id, target_exam=exam)
+    user = users.update_preferences(callback.from_user.id, target_exam=exam, exam_selected=True)
     if callback.message:
         await callback.message.edit_reply_markup(
             reply_markup=settings_keyboard(user["target_exam"], user["explanation_mode"], settings)
